@@ -4,18 +4,18 @@
     .land {
         fill: #222;
     }
-    
+
     .county-boundary {
         fill: none;
         stroke: #fff;
         stroke-width: .5px;
     }
-    
+
     .state-boundary {
         fill: none;
         stroke: #fff;
     }
-    
+
     .state-boundary {
         fill: none;
     }
@@ -66,7 +66,7 @@
 
         d3.json("../../data/topo-us-expenses.json", function(error, us) {
             if (error) throw error;
-
+            console.log(us);
             var expenseColorScale = d3.scale.linear()
                 .domain([0, maxExpense])
                 .range(['#bae4b3', '#238b45']);
@@ -172,7 +172,7 @@
 
 
         d3.select("body").append("h1")
-            .text("Utilization Overview (2012-2015) Need data!");
+            .text("Utilization Overview (2012-2015)");
         var map_utilization_2012 = d3.select("body").append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -193,11 +193,13 @@
             .attr("height", height)
             .append("g");
 
-        d3.json("../../data/topo-us-expenses.json", function(error, us) {
+        d3.json("../../data/topo-us-util.json", function(error, us) {
             if (error) throw error;
 
+            console.log(us);
+
             var utilizationColorScale = d3.scale.linear()
-                .domain([0, maxExpense])
+                .domain([0, 100])
                 .range(['#cbc9e2', '#6a51a3']);
 
             map_utilization_2012.insert("path", ".graticule")
@@ -212,7 +214,7 @@
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    return utilizationColorScale(d.properties.exp_2012)
+                    return utilizationColorScale(d.properties.util_2012);
                 });
 
 
@@ -238,7 +240,7 @@
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    return utilizationColorScale(d.properties.exp_2013)
+                    return utilizationColorScale(d.properties.util_2013)
                 });
 
 
@@ -263,7 +265,7 @@
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    return utilizationColorScale(d.properties.exp_2014)
+                    return utilizationColorScale(d.properties.util_2014)
                 });
 
             map_utilization_2014.insert("path", ".graticule")
@@ -287,7 +289,7 @@
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    return utilizationColorScale(d.properties.exp_2015)
+                    return utilizationColorScale(d.properties.util_2015)
                 });
 
 
