@@ -124,16 +124,16 @@ function drawMap() {
   // size based on capacity/population
   let dotSize = d3.scaleLinear()
     .domain(d3.extent(zipData, el => el.population))
-    .range([2, 6]);
+    .range([3, 8]);
 
   // color based on expense per unit
-  let testCenterColor = d3.scaleLinear()
-  .domain(d3.extent(testCenterIDs, (el) => {
-    return d3.mean(testCenterData[el].testEvents, (el2) => {
-      return el2.expense / el2.assigned;
-    });
-  }))
-  .range(["white", "green"]);
+  // let testCenterColor = d3.scaleLinear()
+  // .domain(d3.extent(testCenterIDs, (el) => {
+  //   return d3.mean(testCenterData[el].testEvents, (el2) => {
+  //     return el2.expense / el2.assigned;
+  //   });
+  // }))
+  // .range(["white", "green"]);
 
   // size of zip based on population
   // let zipSize = d3.scaleLinear()
@@ -220,15 +220,39 @@ function drawMap() {
         return projection([d.long, d.lat])[1];
       })
       .attr("r", (d) => {
-        return dotSize(d3.mean(d.testEvents, (el) => el.capacity));
+        return dotSize(d3.sum(d.testEvents, (el) => el.capacity));
       })
       .style("fill", (d) => {
-        return testCenterColor(d3.mean(d.testEvents, (el) => {
-          return el.expense / el.assigned;
-        }));
+        return "url(#grad" + Number(d.tcID) + ")";
       })
       .style("stroke", "green")
       .style("stroke-width", 0.05);
+
+    // use linearGradient to fill circle
+    var grad = mySVG.append("defs")
+      .selectAll("linearGradient")
+      .data(testCenterIDs)
+      .enter().append("linearGradient")
+      .datum((d) => testCenterData[d])
+      .attr("id", function(d) {
+        return "grad" + Number(d.tcID);
+      })
+      .attr("x1", "0%").attr("x2", "0%").attr("y1", "100%").attr("y2", "0%");
+
+    grad.append("stop")
+      .attr("offset", function(d) {
+        //console.log(Number(d.id) + ": " + assignedSum[Number(d.id)] * 100 / capacitySum[Number(d.id)] + " - " + capacitySum[Number(d.id)]);
+        return (d3.sum(d.testEvents, el => el.assigned) * 100 /
+          d3.sum(d.testEvents, el => el.capacity)) + "%";
+      })
+      .style("stop-color", "green");
+
+    grad.append("stop")
+      .attr("offset", function(d) {
+        return (d3.sum(d.testEvents, el => el.assigned) * 100 /
+          d3.sum(d.testEvents, el => el.capacity)) + "%";
+      })
+      .style("stop-color", "white");
 
     // zoom into Cook County
     zoomIntoID("#county17031");
