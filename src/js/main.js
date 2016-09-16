@@ -10,7 +10,9 @@ var App = App || {};
 
     App.initMap = function() {
 
-        createOverview();
+        // createOverview();
+        createLocalVoronoi();
+
 
     };
 

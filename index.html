@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="./lib/css/bootstrap.min.css" />
 
     <!-- JS Libs-->
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
+		<script src="https://d3js.org/d3-voronoi.v1.min.js"></script>
 
     <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
 
@@ -25,8 +26,8 @@
     <script src="./src/js/topomap.js"></script>
     <script src="./src/js/nationalOverview.js"></script>
     <script src="./src/js/map.js"></script>
-    <script src="./src/js/main.js"></script>
     <script src="./src/js/LocalVoronoi.js"></script>
+    <script src="./src/js/main.js"></script>
 
 </head>
 
@@ -94,8 +95,8 @@
                     <div class="head"><span class="headline">Local Data</span></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row" id="voronoiRow">
+                <div class="col-md-12" id="voronoiCol">
                     <svg id="something"></svg>
                 </div>
             </div>
