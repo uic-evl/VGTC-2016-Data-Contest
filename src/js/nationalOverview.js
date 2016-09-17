@@ -1,19 +1,18 @@
 function createOverview()
 {
-
     var width = 400,
         height = 200;
 
     var maxExpense = 3966889.724;
 
-    var projection = d3.geo.albersUsa()
+        var projection = d3.geoAlbersUsa()
         .scale(450)
         .translate([width / 2, height / 2]);
 
-    var path = d3.geo.path()
+    var path = d3.geoPath()
         .projection(projection);
 
-    d3.select("body").append("h1")
+    d3.select("#overview").append("h1")
         .text("Expense Overview (2012-2015)");
 
 
@@ -42,8 +41,8 @@ function createOverview()
 
     d3.json("./data/topo-us-expenses.json", function(error, us) {
         if (error) throw error;
-
-        var expenseColorScale = d3.scale.linear()
+        console.log(us);
+        var expenseColorScale = d3.scaleLinear()
             .domain([0, maxExpense])
             .range(['#bae4b3', '#238b45']);
 
@@ -147,33 +146,35 @@ function createOverview()
     });
 
 
-    d3.select("body").append("h1")
-        .text("Utilization Overview (2012-2015) Need data!");
-    var map_utilization_2012 = d3.select("body").append("svg")
+    d3.select("#overview").append("h1")
+        .text("Utilization Overview (2012-2015)");
+    var map_utilization_2012 = d3.select("#overview").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g");
 
-    var map_utilization_2013 = d3.select("body").append("svg")
+    var map_utilization_2013 = d3.select("#overview").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g");
 
-    var map_utilization_2014 = d3.select("body").append("svg")
+    var map_utilization_2014 = d3.select("#overview").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g");
 
-    var map_utilization_2015 = d3.select("body").append("svg")
+    var map_utilization_2015 = d3.select("#overview").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g");
 
-    d3.json("../../data/topo-us-expenses.json", function(error, us) {
+    d3.json("./data/topo-us-util.json", function(error, us) {
         if (error) throw error;
 
-        var utilizationColorScale = d3.scale.linear()
-            .domain([0, maxExpense])
+        console.log(us);
+
+        var utilizationColorScale = d3.scaleLinear()
+            .domain([0, 100])
             .range(['#cbc9e2', '#6a51a3']);
 
         map_utilization_2012.insert("path", ".graticule")
@@ -188,7 +189,7 @@ function createOverview()
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-                return utilizationColorScale(d.properties.exp_2012)
+                return utilizationColorScale(d.properties.util_2012);
             });
 
 
@@ -214,7 +215,7 @@ function createOverview()
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-                return utilizationColorScale(d.properties.exp_2013)
+                return utilizationColorScale(d.properties.util_2013)
             });
 
 
@@ -239,7 +240,7 @@ function createOverview()
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-                return utilizationColorScale(d.properties.exp_2014)
+                return utilizationColorScale(d.properties.util_2014)
             });
 
         map_utilization_2014.insert("path", ".graticule")
@@ -263,7 +264,7 @@ function createOverview()
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-                return utilizationColorScale(d.properties.exp_2015)
+                return utilizationColorScale(d.properties.util_2015)
             });
 
 
