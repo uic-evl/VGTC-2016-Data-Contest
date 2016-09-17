@@ -1,11 +1,10 @@
-function createOverview()
-{
+function createOverview() {
     var width = 400,
         height = 200;
 
     var maxExpense = 3966889.724;
 
-        var projection = d3.geoAlbersUsa()
+    var projection = d3.geoAlbersUsa()
         .scale(450)
         .translate([width / 2, height / 2]);
 
@@ -70,6 +69,15 @@ function createOverview()
             .attr("d", path);
 
 
+        map_expense_2012.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2012');
+
+
 
 
         map_expense_2013.insert("path", ".graticule")
@@ -95,6 +103,14 @@ function createOverview()
             .attr("class", "state-boundary")
             .attr("d", path);
 
+        map_expense_2013.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2013');
+
 
 
         map_expense_2014.insert("path", ".graticule")
@@ -119,6 +135,13 @@ function createOverview()
             .attr("class", "state-boundary")
             .attr("d", path);
 
+        map_expense_2014.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2014');
 
 
         map_expense_2015.insert("path", ".graticule")
@@ -143,10 +166,19 @@ function createOverview()
             }))
             .attr("class", "state-boundary")
             .attr("d", path);
+
+        map_expense_2015.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2015');
     });
 
 
     d3.select("#overview").append("h1")
+        .attr('id', 'utilheader')
         .text("Utilization Overview (2012-2015)");
     var map_utilization_2012 = d3.select("#overview").append("svg")
         .attr("width", width)
@@ -200,6 +232,14 @@ function createOverview()
             .attr("class", "state-boundary")
             .attr("d", path);
 
+        map_utilization_2012.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2012');
+
 
 
 
@@ -226,7 +266,13 @@ function createOverview()
             .attr("class", "state-boundary")
             .attr("d", path);
 
-
+        map_utilization_2013.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2013');
 
         map_utilization_2014.insert("path", ".graticule")
             .datum(topojson.feature(us, us.objects.land))
@@ -250,7 +296,13 @@ function createOverview()
             .attr("class", "state-boundary")
             .attr("d", path);
 
-
+        map_utilization_2014.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2014');
 
         map_utilization_2015.insert("path", ".graticule")
             .datum(topojson.feature(us, us.objects.land))
@@ -274,6 +326,14 @@ function createOverview()
             }))
             .attr("class", "state-boundary")
             .attr("d", path);
+
+        map_utilization_2015.append('text')
+            .attr('x', 220)
+            .attr('y', 190)
+            .attr('dy', '.35em')
+            .style('font-size', 20)
+            .style('font-weight', 'bold')
+            .text('2015');
     });
 
 }
