@@ -1,0 +1,147 @@
+<html>
+<meta charset="utf-8">
+
+<head>
+
+    <!-- CSS Libs-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="./lib/css/tether-theme-basic.min.css" />
+    <link rel="stylesheet" href="./lib/css/bootstrap.min.css" />
+
+    <!-- JS Libs-->
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-voronoi.v1.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" ></script>
+    <script src="./lib/js/tether.min.js"></script>
+    <script src="./lib/js/bootstrap.min.js"></script>
+
+    <!-- CSS SRC-->
+    <link rel="stylesheet" href="./src/css/main.css" />
+
+    <!--JS SRC-->
+    <script src="./src/js/topomap2.js"></script>
+    <script src="./src/js/topomap.js"></script>
+    <script src="./src/js/nationalOverview.js"></script>
+    <script src="./src/js/map.js"></script>
+    <script src="./src/js/LocalVoronoi.js"></script>
+    <script src="./src/js/main2.js"></script>
+
+</head>
+
+<body onload="App.initMap()">
+
+<!-- Map Div -->
+<div class="fluid-container">
+
+    <div class="row">
+        <div class="col-md-12" style="text-align: center">
+            <header>Title for the visualization</header>
+            <div class="subhead">aaa</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Left side for national analysis -->
+        <div class="col-md-6 left-container-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="head2"><span class="headline">National Analysis</span></div>
+                </div>
+                <!--<div class="col-md-2 left-container-area">-->
+                <!--<div class="head-summary">-->
+                <!--<span class="headline2">Per State</span>-->
+                <!--</div>-->
+                <!--<div id="states_cmp"></div>-->
+                <!--</div>-->
+                <!--<div class="col-md-10">-->
+                <!--<div class="head-summary">-->
+                <!--<span class="headline2">Distribution of Students</span>-->
+                <!--</div>-->
+                <!--<div id="national_mapid_src"></div>-->
+                <!--<div id="national_mapid_cmp"></div>-->
+                <!--</div>-->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12 head">
+                                <span class="headline2">Expense Overview (2012 - 2015)</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="exp_aggr" style="height: 620px"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="exp_2012" style="height: 310px"></div>
+                                <div id="exp_2014" style="height: 310px"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="exp_2013" style="height: 310px"></div>
+                                <div id="exp_2015" style="height: 310px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12 head">
+                                <span class="headline2">Utilization Overview (2012 - 2015)</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="util_aggr" style="height: 620px"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="util_2012" style="height: 310px"></div>
+                                <div id="util_2014" style="height: 310px"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="util_2013" style="height: 310px"></div>
+                                <div id="util_2015" style="height: 310px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side for regional and local analysis -->
+        <div class="col-md-6">
+            <!-- Regional Analysis -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="head"><span class="headline">Regional Data</span></div>
+                </div>
+                <div class="col-md-2">
+                    <div id="regional_cmp_list"></div>
+                </div>
+                <div class="col-md-5">
+                    <div id="regional_map_src"></div>
+                </div>
+                <div class="col-md-5">
+                    <div id="regional_map_cmp"></div>
+                </div>
+            </div>
+
+            <!-- Local Analysis -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="head"><span class="headline">Local Data</span></div>
+                </div>
+            </div>
+            <div class="row" id="voronoiRow">
+                <div class="col-md-12" id="voronoiCol">
+                    <svg id="something"></svg>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

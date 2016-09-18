@@ -29,7 +29,7 @@ path {
 
 .legend text {
     fill: #777;
-    font: 10px sans-serif;
+    font: 20px sans-serif;
     text-anchor: middle;
 }
 
@@ -67,6 +67,7 @@ header{
 .head{
     text-align: center;
     position: relative;
+    margin-top: 50px;
 }
 
 .head-summary {
@@ -97,11 +98,11 @@ header{
     padding: 10px 0 10px 0;
     word-wrap: break-word;
     line-height: 1;
+    text-align: center;
 
     border-top: solid;
-    border-bottom: none;
-    border-width: 3px;
-    margin-left: 10px;
+    border-bottom: solid;
+    border-width: 1px;
 }
 
 .left-container-section{
@@ -136,4 +137,10 @@ header{
 
 #utilheader {
   margin-top:80px;
+}
+
+.legend-box {
+    fill: none;
+    stroke: #888;
+    font-size: 10px;
 }
