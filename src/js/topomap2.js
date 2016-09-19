@@ -1,4 +1,4 @@
-function TopoMap2(container, data, scale, chartType, maxValue, year, drawLegend, drawYear){
+function TopoMap2(container, data, scale, chartType, maxValue, minValue, year, drawLegend, drawYear){
     this.map = {};
     this.map.margin = { top: 20, right: 10, bottom: 40, left: 90 };
     this.map.height = 0;
@@ -9,6 +9,7 @@ function TopoMap2(container, data, scale, chartType, maxValue, year, drawLegend,
     this.map.colorScale_util = null;
     this.map.quantizeScale = null;
     this.map.maxValue = maxValue;
+    this.map.minValue = minValue;
     this.map.year = year;
     this.map.drawLegend = drawLegend;
     this.map.drawYear = drawYear;
@@ -137,11 +138,20 @@ TopoMap2.prototype = {
 
         // set up the color scale used for the choropleth map
         //map.maxValue = self.getMax();
-        var colorScale_expense = ['#bae4b3', '#74c476',  '#238b45'];
-        var colorScale_util = [];
-        map.quantizeScale = d3.scaleQuantize()
+        if(map.chartType == "expense")
+        {
+         var colorScale_expense = ['#000000','#bae4b3', '#74c476',  '#238b45'];
+         map.quantizeScale = d3.scaleQuantize()
             .domain([0, map.maxValue])
             .range(colorScale_expense);
+        }
+        else 
+        {
+        	var colorScale_util = ['#000000','#cbc9e2','#9e9ac8','#6a51a3'];
+        	map.quantizeScale = d3.scaleQuantize()
+            .domain([0, map.maxValue])
+            .range(colorScale_util);
+        }
 
         map.colorScale_expense = d3.scaleLinear()
             .domain([0, map.maxValue])
@@ -232,4 +242,27 @@ TopoMap2.prototype = {
 
 
         return max;
+    }
+
+
+
+    getMin = function(us){
+        var map = us;
+        var year = 2012;
+        console.log(map);
+        var min = getMax(us);
+        var states = map.objects.states.geometries;
+        for(var i = 0; i < states.length; i++){
+        	year =2012;
+        	while(year!=2015)
+        	{
+            	if (states[i].hasOwnProperty('properties') &&
+                	(states[i].properties["exp_" + year] <= min))
+                	min = states[i].properties["exp_" + year];
+                year++;
+            }
+        }
+
+
+        return min;
     }
