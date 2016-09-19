@@ -34,7 +34,9 @@ var App = App || {};
             new TopoMap2("#util_2014", us, 450, "utilization", 100, 0, 2014, false, true);
             new TopoMap2("#util_2015", us, 450, "utilization", 100, 0, 2015, false, true);
         });
-        createLocalVoronoi();
+        createLocalVoronoi("#something", "#voronoiCol", "state");
+        createLocalVoronoi("#something2", "#voronoiCol2", "county");
+        createLocalVoronoi("#something3", "#voronoiCol3", "county");
     };
 
 })();

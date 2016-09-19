@@ -2,15 +2,17 @@
 /* global topojson */
 /* global d3-voronoi */
 
-function createLocalVoronoi() {
-  let WIDTH = d3.select("#voronoiCol").node().clientWidth;
-  let HEIGHT = WIDTH * 0.85;
+function createLocalVoronoi(svgID, columnID, stateOrCounty) {
+  let WIDTH = d3.select(columnID).node().clientWidth;
+  let HEIGHT = WIDTH * 1.5;
+
+  let dotScale = window.innerWidth/1920;
 
   let zipData = [];
   let testCenterData = {};
   let testCenterIDs = [];
 
-  let mySVG = d3.select("#something")
+  let mySVG = d3.select(svgID)
     .attr("width", WIDTH)
     .attr("height", HEIGHT);
 
@@ -147,7 +149,7 @@ function createLocalVoronoi() {
     // size based on capacity/population
     let dotSize = d3.scaleLinear()
       .domain(d3.extent(zipData, el => el.population))
-      .range([3, 8]);
+      .range([2 * dotScale, 6 * dotScale]);
 
     // color based on expense per unit
     // let testCenterColor = d3.scaleLinear()
@@ -304,10 +306,11 @@ function createLocalVoronoi() {
         .style("stop-color", "white");
 
       // zoom into Cook County
-      zoomIntoID("#county17031");
-
-      // zoom into Illinois
-      // zoomIntoID("#state17");
+      if(stateOrCounty === "state") {
+        zoomIntoID("#state17");
+      } else {
+        zoomIntoID("#county17031");
+      }
 
     });
 
@@ -327,20 +330,21 @@ function createLocalVoronoi() {
       map.attr("transform", "translate(" + translate + ")scale(" + scale + ")")
       .select(".counties")
       .selectAll("path")
-        .style("stroke-width", 1 / scale);
+        .style("stroke-width", dotScale * 1 / scale)
+        .style("opacity", stateOrCounty === "state" ? 0 : 1);
 
       map.select(".states")
         .selectAll("path")
-          .style("stroke-width", 5 / scale);
+          .style("stroke-width", dotScale * 2 / scale);
 
       // testCenterSize
       //   .domain(testCenterSize.domain().map(el => el / scale));
 
       map.selectAll(".voronoiPath")
-        .style("stroke-width", 0.5 / scale);
+        .style("stroke-width", dotScale * 0.5 / scale);
 
       map.selectAll(".testCenter")
-        .style("stroke-width", 0.5 / scale)
+        .style("stroke-width", dotScale * 0.5 / scale)
         .attr("r", (d) => {
           return dotSize(d3.mean(d.testEvents, (el) => el.capacity)) / scale;
         });
@@ -350,7 +354,10 @@ function createLocalVoronoi() {
           // return zipSize(d.population) / scale;
           return dotSize(d.population) / scale;
         })
-        .style("stroke-width", 0.5 / scale);
+        .style("stroke-width", dotScale * 0.5 / scale)
+        .style("opacity", stateOrCounty === "state" ? 0 : 1);
+
+      map.select(id).style("stroke-width", dotScale * 4 / scale)
     }
   }
 }
