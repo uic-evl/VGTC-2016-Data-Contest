@@ -185,7 +185,22 @@ function createLocalVoronoi() {
         .attr("d", path)
         .style("fill", "none")
         .style("stroke", "black")
-        .style("stroke-width", 0.5);
+        .style("stroke-width", 1);
+
+      // create map
+      map.append("g")
+        .attr("class", "states")
+      .selectAll("path")
+        // .data(topojson.feature(us, us.objects.states).features) // states
+        .data(topojson.feature(us, us.objects.states).features) // counties
+      .enter().append("path")
+        .attr("id", (d) => {
+          return "state" + d.id;
+        })
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", "black")
+        .style("stroke-width", 5);
 
       // create zip points
       map.selectAll(".zip")
@@ -258,6 +273,9 @@ function createLocalVoronoi() {
       // zoom into Cook County
       zoomIntoID("#county17031");
 
+      // zoom into Illinois
+      // zoomIntoID("#state17");
+
     });
 
     function zoomIntoID(id) {
@@ -276,13 +294,17 @@ function createLocalVoronoi() {
       map.attr("transform", "translate(" + translate + ")scale(" + scale + ")")
       .select(".counties")
       .selectAll("path")
-        .style("stroke-width", 0.5 / scale);
+        .style("stroke-width", 1 / scale);
+
+      map.select(".states")
+        .selectAll("path")
+          .style("stroke-width", 5 / scale);
 
       // testCenterSize
       //   .domain(testCenterSize.domain().map(el => el / scale));
 
       map.selectAll(".voronoiPath")
-        .style("stroke-width", 0.25 / scale);
+        .style("stroke-width", 0.5 / scale);
 
       map.selectAll(".testCenter")
         .style("stroke-width", 0.5 / scale)
