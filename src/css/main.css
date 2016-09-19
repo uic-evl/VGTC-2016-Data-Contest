@@ -29,7 +29,7 @@ path {
 
 .legend text {
     fill: #777;
-    font: 20px sans-serif;
+    font: 35px sans-serif;
     text-anchor: middle;
 }
 
@@ -56,6 +56,17 @@ header{
     border-top: 2px solid #2f2f2f;
     padding: 12px 0 12px 0;
     margin-bottom: 30px;
+}
+
+.subhead-t1{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.subhead-t2{
+    font-size: 50px;
+    font-style: italic;
+    color: dimgrey;
 }
 
 .subtitle{
@@ -94,7 +105,7 @@ header{
 .headline2{
     font-family: 'Anton', serif;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 60px;
     padding: 10px 0 10px 0;
     word-wrap: break-word;
     line-height: 1;
@@ -142,4 +153,9 @@ header{
 .legend-box {
     fill: none;
     font-size: 10px;
+}
+
+.year{
+    font-size: 40px;
+    text-align: center;
 }

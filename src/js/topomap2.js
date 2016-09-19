@@ -80,9 +80,9 @@ TopoMap2.prototype = {
             .data(qrange(map.quantizeScale.domain()[1], map.quantizeScale.range().length))
             .enter().append("text")
             .attr("class", "legend-text")
-            .attr("x", 50)
-            .attr("y", function(d, i) { return (i+1)*lineheight - 20; })
-            .attr("transform", "translate (" + (map.width - 100) + "," + (map.height - 220) + ")")
+            .attr("x", 70)
+            .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
+            .attr("transform", "translate (" + (map.width - 105) + "," + (map.height - 220) + ")")
             .text(function(d) { return "< " + format(d); });
     },
 
@@ -197,6 +197,7 @@ TopoMap2.prototype = {
             .attr("class", "border border--state")
             .attr("d", map.path);*/
 
+        /*
         if (map.drawYear){
             map.svg.append('text')
                 .attr('x', 220)
@@ -215,7 +216,7 @@ TopoMap2.prototype = {
                 .style('font-size', 20)
                 .style('font-weight', 'bold')
                 .text('Average');
-        }
+        }*/
 
         if (map.drawLegend) self.drawLegend();
         self.update();
