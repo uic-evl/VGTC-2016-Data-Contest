@@ -5,7 +5,8 @@ function TopoMap2(container, data, scale, chartType, maxValue, year, drawLegend,
     this.map.width = 0;
     this.map.container = container;
     this.map.scale = scale;
-    this.map.colorScale = null;
+    this.map.colorScale_expense = null;
+    this.map.colorScale_util = null;
     this.map.quantizeScale = null;
     this.map.maxValue = maxValue;
     this.map.year = year;
@@ -87,14 +88,14 @@ TopoMap2.prototype = {
     getValue: function(d, chartType, year) {
         if (chartType == "expense"){
             if (year == 9999)
-                return d.properties["exp_2012"] + d.properties["exp_2013"] +
-                       d.properties["exp_2014"] + d.properties["exp_2015"];
+                return (d.properties["exp_2012"] + d.properties["exp_2013"] +
+                       d.properties["exp_2014"] + d.properties["exp_2015"])/4;
             else
                 return d.properties["exp_" + year];
         } else if (chartType == "utilization") {
             if (year == 9999)
-                return d.properties["util_2012"] + d.properties["util_2013"] +
-                    d.properties["util_2014"] + d.properties["util_2015"];
+                return (d.properties["util_2012"] + d.properties["util_2013"] +
+                    d.properties["util_2014"] + d.properties["util_2015"])/4;
             else
                 return d.properties["util_" + year];
         } else return 0;
@@ -110,6 +111,7 @@ TopoMap2.prototype = {
                 (states[i].properties["exp_" + map.year] > max))
                 max = states[i].properties["exp_" + map.year];
         }
+
 
         return max;
     },
@@ -135,14 +137,21 @@ TopoMap2.prototype = {
 
         // set up the color scale used for the choropleth map
         //map.maxValue = self.getMax();
-        var colorScale = ['#f1eef6', '#d7b5d8', '#df65b0',  '#dd1c77', '#980043']
+        var colorScale_expense = ['#bae4b3', '#74c476',  '#238b45'];
+        var colorScale_util = [];
         map.quantizeScale = d3.scaleQuantize()
             .domain([0, map.maxValue])
-            .range(colorScale);
+            .range(colorScale_expense);
 
-        map.colorScale = d3.scaleLinear()
+        map.colorScale_expense = d3.scaleLinear()
             .domain([0, map.maxValue])
-            .range(colorScale);
+            .range(['#bae4b3', '#238b45']);
+
+        map.colorScale_util = d3.scaleLinear()
+            .domain([0, map.maxValue])
+            .range(['#cbc9e2', '#6a51a3']);
+
+
 
         // set up d3 geo projections and add map borders: land, states and counties
         var projection = d3.geoAlbersUsa()
@@ -161,7 +170,10 @@ TopoMap2.prototype = {
             .enter().append("path")
              .attr("d", map.path)
              .style("fill", function(d) {
-                return map.colorScale(self.getValue(d, map.chartType, map.year))
+             	if(map.chartType=="expense")
+                	return map.colorScale_expense(self.getValue(d, map.chartType, map.year));
+                else
+                	return map.colorScale_util(self.getValue(d, map.chartType, map.year));
              });
 
         map.svg.insert("path", ".graticule")
@@ -184,8 +196,40 @@ TopoMap2.prototype = {
                 .style('font-weight', 'bold')
                 .text(map.year);
         }
+        else
+        {
+        	  map.svg.append('text')
+                .attr('x', 500)
+                .attr('y', 500)
+                .attr('dy', '.35em')
+                .style('font-size', 20)
+                .style('font-weight', 'bold')
+                .text('Average');
+        }
 
         if (map.drawLegend) self.drawLegend();
         self.update();
     }
 }
+
+
+    getMax = function(us){
+        var map = us;
+        var year = 2012;
+        console.log(map);
+        var max = 0;
+        var states = map.objects.states.geometries;
+        for(var i = 0; i < states.length; i++){
+        	year =2012;
+        	while(year!=2015)
+        	{
+            	if (states[i].hasOwnProperty('properties') &&
+                	(states[i].properties["exp_" + year] > max))
+                	max = states[i].properties["exp_" + year];
+                year++;
+            }
+        }
+
+
+        return max;
+    }

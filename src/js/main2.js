@@ -16,11 +16,12 @@ var App = App || {};
         d3.json("./data/topo-us-expenses.json", function(error, us) {
             if (error) throw error;
 
-            new TopoMap2("#exp_aggr", us, 1100, "expense", 3966889.724, 9999, true, false);
-            new TopoMap2("#exp_2012", us, 450, "expense", 3966889.724, 2012, false, true);
-            new TopoMap2("#exp_2013", us, 450, "expense", 3966889.724, 2013, false, true);
-            new TopoMap2("#exp_2014", us, 450, "expense", 3966889.724, 2014, false, true);
-            new TopoMap2("#exp_2015", us, 450, "expense", 3966889.724, 2015, false, true);
+            var maxValue = getMax(us);
+            new TopoMap2("#exp_aggr", us, 1100, "expense", maxValue, 9999, true, false);
+            new TopoMap2("#exp_2012", us, 450, "expense", maxValue, 2012, false, true);
+            new TopoMap2("#exp_2013", us, 450, "expense", maxValue, 2013, false, true);
+            new TopoMap2("#exp_2014", us, 450, "expense", maxValue, 2014, false, true);
+            new TopoMap2("#exp_2015", us, 450, "expense", maxValue, 2015, false, true);
         });
 
         d3.json("./data/topo-us-util.json", function(error, us) {
