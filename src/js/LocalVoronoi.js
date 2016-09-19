@@ -4,7 +4,7 @@
 
 function createLocalVoronoi() {
   let WIDTH = d3.select("#voronoiCol").node().clientWidth;
-  let HEIGHT = WIDTH * .85;
+  let HEIGHT = WIDTH * 0.85;
 
   let zipData = [];
   let testCenterData = {};
@@ -91,6 +91,28 @@ function createLocalVoronoi() {
         // console.log(testCenterData);
         // console.log(testCenterIDs);
 
+        // code to manufacture fake data
+
+        // change data from an existing test center
+        // testCenterData["2274200"].testEvents[0].assigned = 400;
+
+        // add a new test center
+        /*
+        testCenterData["1"] = {
+          pID: 1,
+          lat: 41.95,
+          long: -88.160356,
+          tcID: 1,
+          testEvents: [{
+            assigned: 20,
+            capacity: 200
+          }]
+        };
+        testCenterIDs.push("1");
+        */
+
+
+
         drawMap();
       });
 
@@ -165,12 +187,20 @@ function createLocalVoronoi() {
           return testCenterData[testCenterIDs[i]];
         })
         .style("fill", (d, i) => {
-          return voronoiFill(d3.mean(d.testEvents, (el) => {
+          let percent = d3.mean(d.testEvents, (el) => {
             return el.assigned / el.capacity;
-          }));
+          });
+
+          return percent > 1 ? "#FF0000" : voronoiFill(percent);
         })
         .style("stroke", "red")
-        .style("stroke-width", 0.15);
+        .style("stroke-width", 0.15)
+        .on("click", (d) => {
+          console.log(d);
+          console.log(d3.mean(d.testEvents, (el) => {
+            return el.assigned / el.capacity;
+          }));
+        });
 
       // create map
       map.append("g")
@@ -242,7 +272,10 @@ function createLocalVoronoi() {
           return "url(#grad" + Number(d.tcID) + ")";
         })
         .style("stroke", "green")
-        .style("stroke-width", 0.05);
+        .style("stroke-width", 0.05)
+        .on("click", (d) => {
+          console.log(d);
+        });
 
       // use linearGradient to fill circle
       var grad = mySVG.append("defs")
