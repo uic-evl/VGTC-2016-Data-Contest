@@ -4,7 +4,7 @@ function createOverview() {
 
     var maxExpense = 3966889.724;
 
-    var projection = d3.geoAlbersUsa()
+    var projection = d3.geoAlbers()
         .scale(450)
         .translate([width / 2, height / 2]);
 

@@ -45,7 +45,7 @@ TopoMap.prototype = {
             + map.margin.top + ")");
 
         // set up d3 geo projections and add map borders
-        var projection = d3.geo.albersUsa()
+        var projection = d3.geo.albers()
             .scale(1280).translate([map.width / 2, map.height / 2]);
 
         map.path = d3.geo.path().projection(projection);
