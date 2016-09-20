@@ -1,7 +1,7 @@
 var Chart = Class.extend({
     init: function (divId, svgId, csvPath) {
         var box = this.getBox(divId);
-        var ratio = 16.0/9.0;
+        var ratio = 32.0/9.0;
         var height = box.width/ratio;
         if (box.height < height) {
             this.setHeightForAspectRatio(divId, ratio);
@@ -53,6 +53,7 @@ var Chart = Class.extend({
         var chartLeftMargin = chartWidth * 0.04;
         var chartHeight = 0.8*chartWidth/this.aspect;
         var chartTopMargin = chartHeight * 0.06;
+        var barWidth = 10.0;
         /*console.log(chartHeight,chartWidth,chartLeft,chartTop);
         console.log();*/
         var stateBars = this.svg.selectAll(".stateChartBar")
@@ -60,7 +61,7 @@ var Chart = Class.extend({
 
         var stateChartXScale = d3.scaleOrdinal()
                 .range(states.map(function(d, i) {
-                    var left = chartLeft + 2*chartLeftMargin;
+                    var left = chartLeft + chartLeftMargin + 2*barWidth;
                     var right = chartLeft + chartWidth;
                     return left + (right - left)*i/states.length;
                 }));
@@ -89,10 +90,10 @@ var Chart = Class.extend({
             .attr("class", "label")
             .attr("transform", "rotate(-90)")
             .attr("x", 0)
-            .attr("y", 6)
+            .attr("y", 0)
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
-            .attr("dy", ".71em")
+            .attr("dy", ".7rem")
             .style("text-anchor", "end")
             .text("Average capacity");
 
@@ -112,18 +113,18 @@ var Chart = Class.extend({
             .attr("class", "label")
             .attr("transform", "translate(" + (chartWidth) + "," + (-chartTopMargin) + ")")
             .attr("x", -chartLeftMargin/2)
-            .attr("y", 5)
+            .attr("y", 0)
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
-            .attr("dy", "0.6rem")
+            .attr("dy", "0.7rem")
             .style("text-anchor", "end")
             .text("State");
 
-        var stateFillColor = "rgb(180,118,120)";
+        var stateFillColor = "rgb(180,108,112)";
         var stateEmptyColor = "rgb(180,180,180)"
         var bar = stateChartBars.enter()
                 .append("g");
-        var barWidth = 10.0;
+        
 
         bar.append("rect")
             .attr("x", function(d, i){ return stateChartXScale(d.STATE) - barWidth/2.0; })
@@ -142,9 +143,9 @@ var Chart = Class.extend({
         legend.append("rect")
             .attr("x", chartWidth - chartLeftMargin)
             .attr("y", chartTop + chartTopMargin)
-            .attr("width", "1%")
+            .attr("width", 10)
             .attr("fill", stateEmptyColor)
-            .attr("height", "2%");
+            .attr("height", 10);
         legend.append("text")
             .attr("class", "legend")
             .attr("x", chartWidth - 1.1* chartLeftMargin)
@@ -157,9 +158,9 @@ var Chart = Class.extend({
         legend.append("rect")
             .attr("x", chartWidth - chartLeftMargin)
             .attr("y", chartTop + 2*chartTopMargin)
-            .attr("width", "1%")
+            .attr("width", 10)
             .attr("fill", stateFillColor)
-            .attr("height", "2%");
+            .attr("height", 10);
         legend.append("text")
             .attr("class", "legend")
             .attr("x", chartWidth - 1.1* chartLeftMargin)
