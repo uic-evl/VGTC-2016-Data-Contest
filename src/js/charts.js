@@ -179,7 +179,7 @@ var Chart = Class.extend({
         var chartTop = 0;
         var chartLeft = 0;
 
-        var chartWidth = 1000.0;
+        var chartWidth = 990.0;
         var chartLeftMargin = chartWidth * 0.04;
         var chartHeight = 0.8*chartWidth/this.aspect;
         var chartTopMargin = chartHeight * 0.06;
@@ -218,7 +218,7 @@ var Chart = Class.extend({
             .attr("class", "label")
             .attr("transform", "rotate(-90)")
             .attr("x", 0)
-            .attr("y", -chartLeftMargin)
+            .attr("y", -chartLeftMargin - 5)
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
             .attr("dy", ".7rem")
