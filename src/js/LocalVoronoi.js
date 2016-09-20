@@ -7,6 +7,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
   let HEIGHT = WIDTH * 1.5;
 
   let dotScale = window.innerWidth/1920;
+  let dotScaleTest = window.innerWidth/860;
 
   let zipData = [];
   let testCenterData = {};
@@ -43,7 +44,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             a.push(i*max/num);
         }
         return a;
-      }
+      };
 
       var legend = mySVG.append("g")
         .attr("class", "legend-voronoi");
@@ -87,7 +88,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           });
 
       li.append("text")
-          .text("Capacity??")
+          .text("Capacity")
           .attr("class", "voronoi-legend-title")
           .attr("x", 140)
           .attr("y", function(){ return HEIGHT - 330 });
@@ -250,6 +251,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       .domain(d3.extent(zipData, el => el.population))
       .range([2 * dotScale, 6 * dotScale]);
 
+    let dotSizeTestCenter = d3.scaleLinear()
+        .domain(d3.extent(zipData, el => el.population))
+        .range([2 * dotScaleTest, 6 * dotScaleTest]);
+
     // color based on expense per unit
     // let testCenterColor = d3.scaleLinear()
     // .domain(d3.extent(testCenterIDs, (el) => {
@@ -296,7 +301,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("stroke", (d) => {
           //return d.fake ? "yellow" : "red";
-          return d.fake ? "red" : "gray";
+          return d.fake ? "#a6d854" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -345,15 +350,16 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return projection([d.long, d.lat])[1];
         })
         .attr("r", (d) => {
-          return dotSize(d3.sum(d.testEvents, (el) => el.capacity));
+          console.log(dotSizeTestCenter(d3.sum(d.testEvents, (el) => el.capacity)));
+          return dotSizeTestCenter(d3.sum(d.testEvents, (el) => el.capacity)) * 100;
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "red";
+              return "#31a354";
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
-        .style("stroke", "green")
+        .style("stroke", "#e34a33")
         .style("stroke-width", 0.05)
         .on("click", (d) => {
           console.log(d);
@@ -376,7 +382,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return (d3.sum(d.testEvents, el => el.assigned) * 100 /
             d3.sum(d.testEvents, el => el.capacity)) + "%";
         })
-        .style("stop-color", "green");
+        .style("stop-color", "#e34a33");
 
       grad.append("stop")
         .attr("offset", function(d) {
@@ -462,7 +468,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       map.selectAll(".testCenter")
         .style("stroke-width", dotScale * 0.5 / scale)
         .attr("r", (d) => {
-          return dotSize(d3.mean(d.testEvents, (el) => el.capacity)) / scale;
+          return dotSize(d3.mean(d.testEvents, (el) => el.capacity)) / scale * 2;
         });
 
       map.selectAll(".zip")
