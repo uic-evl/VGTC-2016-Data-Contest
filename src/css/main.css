@@ -190,8 +190,9 @@ header{
     text-anchor: middle;
 }
 
-.legend-voronoi-square{
+.legend-voronoi-square {
     stroke: "black";
+}
 
 #chartCanvas .domain {
     visibility: hidden;
