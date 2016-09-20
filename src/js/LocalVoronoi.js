@@ -3,7 +3,7 @@
 /* global d3-voronoi */
 
 function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
-  let WIDTH = d3.select(columnID).node().clientWidth;
+  let WIDTH = d3.select(columnID).node().clientWidth - 40;
   let HEIGHT = WIDTH * 1.5;
 
   let dotScale = window.innerWidth/1920;

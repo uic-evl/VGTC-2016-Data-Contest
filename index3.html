@@ -24,12 +24,11 @@
 
     <!--JS SRC-->
     <script src="./src/js/topomap2.js"></script>
-    <script src="./src/js/topomap.js"></script>
-    <script src="./src/js/nationalOverview.js"></script>
     <script src="./src/js/map.js"></script>
     <script src="./src/js/LocalVoronoi.js"></script>
     <script src="./src/js/class.js"></script>
     <script src="./src/js/charts.js"></script>
+    <script src="./src/js/seasonalMaps.js"></script>
     <script src="./src/js/main2.js"></script>
 
 </head>
@@ -109,18 +108,24 @@
                             <div class="head">
                                 <span class="headline">Illinois</span>
                             </div>
-                            <svg id="something"></svg>
+                            <div class="voronoi-container">
+                                <svg id="something"></svg>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12 head">
                                     <span class="headline">Distribution changes in Cook County</span>
                                 </div>
-                                <div class="col-md-6" id="voronoiCol2">
-                                    <svg id="something2"></svg>
+                                <div class="col-md-6" id="voronoiCol2" style="margin-top: 20px">
+                                    <div class="voronoi-container">
+                                        <svg id="something2"></svg>
+                                    </div>
                                 </div>
-                                <div class="col-md-6" id="voronoiCol3">
-                                    <svg id="something3"></svg>
+                                <div class="col-md-6" id="voronoiCol3" style="margin-top: 20px">
+                                    <div class="voronoi-container">
+                                        <svg id="something3"></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -130,18 +135,45 @@
         </div>
         <div class="col-md-1">&nbsp;</div>
     </div>
-     <div class="row" id="overViewRow">
-        <div class="col-md-4" id="overViewCol1">
-            <div class="col-md-12 head">
-                <span class="headline">State-wise average capacity utilization</span>
+    <div class="row" id="overViewRow">
+         <div class="col-md-1">&nbsp;</div>
+         <div class="col-md-6" id="overViewCol1">
+             <div class="row">
+                 <div class="col-md-12 head">
+                     <span class="headline">State-wise average capacity utilization</span>
+                 </div>
+                 <div class="col-md-12" id="overViewChart">
+                     <svg id="chartCanvas"></svg>
+                 </div>
+             </div>
+         </div>
+         <div class="col-md-4 seasonal-container" id="overViewCol2">
+            <div class="row">
+                <div class="col-md-12 head">
+                    <span class="headline">Optimal Distribution Network in Illinois per Season</span>
+                </div>
             </div>
-            <div class="col-md-12" id="overViewChart">
-                <svg id="chartCanvas"></svg>
+            <div class="row">
+                <div class="col-md-3" style="text-align: center">
+                    <div class="year">Fall</div>
+                    <div id="fall"></div>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <div class="year">Winter</div>
+                    <div id="winter"></div>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <div class="year">Spring</div>
+                    <div id="spring"></div>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <div class="year">Summer</div>
+                    <div id="summer"></div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-8" id="overViewCol2">&nbsp;</div>
-        
+         </div>
     </div>
+</div>
 </body>
 
 </html>
