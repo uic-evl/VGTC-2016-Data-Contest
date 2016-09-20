@@ -201,3 +201,7 @@ header{
 #chartCanvas .domain {
     visibility: hidden;
 }
+
+#yAxis line {
+    fill: none;
+}
