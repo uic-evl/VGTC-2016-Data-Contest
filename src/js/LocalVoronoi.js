@@ -300,8 +300,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return percent > 1 ? "#FF0000" : voronoiFill(percent);
         })
         .style("stroke", (d) => {
-          //return d.fake ? "yellow" : "red";
-          return d.fake ? "#a6d854" : "gray";
+          //return d.fake ? "white" : "red";
+          return d.fake ? "yellow" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -350,7 +350,6 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return projection([d.long, d.lat])[1];
         })
         .attr("r", (d) => {
-          console.log(dotSizeTestCenter(d3.sum(d.testEvents, (el) => el.capacity)));
           return dotSizeTestCenter(d3.sum(d.testEvents, (el) => el.capacity)) * 100;
         })
         .style("fill", (d) => {
@@ -429,7 +428,6 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         zoomIntoID("#county17031");
           drawLegend();
       }
-
     });
 
     function zoomIntoID(id) {
@@ -483,7 +481,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       map.select("#county17031")
         .style("opacity", 1)
-        .style("stroke", "yellow")
+        .style("stroke", "white")
         .moveToFront();
     }
   }
