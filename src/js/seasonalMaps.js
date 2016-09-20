@@ -6,8 +6,8 @@ function seasonalMaps() {
             bottom: 10,
             left: 10
         },
-        width = 650 - margin.left - margin.right,
-        height = 900 - margin.top - margin.bottom;
+        width = 400 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
 
     const colorCode = d3.scaleOrdinal()
         .domain([ "HIGH SCHOOL", "4 YR COLLEGE/UNIVERSITY", "2 YR COMM COLLEGE", "JR HIGH/MIDDLE SCHOOL", "OTHER", "TECH HIGH SCHOOL", "TECH COLLEGE", "ELEMENTARY SCHOOL", "MILITARY FACILITY", "CORRECTIONAL INSTITUTION", "" ])
@@ -33,7 +33,8 @@ function seasonalMaps() {
         drawZipCodeMap(d3.select("#winter"), zipmap, zip_info, test_centers, season_count = 2)
         drawZipCodeMap(d3.select("#spring"), zipmap, zip_info, test_centers, season_count = 3)
         drawZipCodeMap(d3.select("#summer"), zipmap, zip_info, test_centers, season_count = 4)
-        drawLegend(d3.select("#legend"), zipmap, zip_info, test_centers)
+        drawLegend(d3.select("#season-legend"), zipmap, zip_info, test_centers)
+        drawCircleLegend(d3.select("#season-legend-circle"), test_centers)
     }
 
 
@@ -129,9 +130,9 @@ function seasonalMaps() {
             .style('fill', d => 'url(#tc-'+d.TESTCENTERID+')') //
             .style("fill-opacity", 1)
             .style('stroke', '#000')
-            .on('mouseover', d => {
-                console.log('mouseover +', d.ZIPCODE);
-            })
+            // .on('mouseover', d => {
+            //     console.log('mouseover +', d.ZIPCODE);
+            // })
 
         // svg.append('g')
         //     .attr('class', 'test-centers')
@@ -186,27 +187,47 @@ function seasonalMaps() {
             .range(['#fff7fb','#023858'])
 
         let svg = selection.append("svg")
-            .attr('width', 500)
+            .attr('width', 400)
             .attr('height', 100 )
+        
+         svg.append("g")
+             .attr("class", "legendQuant")
+             .attr("transform", "translate(70,5)")
+             .call( d3.legendColor().scale(colorFill))
 
-        //let colorFill = d3.scaleLinear()
-        //    .domain( zip_info.extent )
-        //    .range(['#fff7fb','#023858'])
+    //     let scale = d3.scaleLinear()
+    //         .domain( d3.extent(test_centers.map(d => +d.events[0].CAPACITY)) )
+    // .range([5, 20])
 
-        svg.append("g")
-            .attr("class", "legendQuant")
-            .attr("transform", "translate(20,20)")
-            .call( d3.legendColor().scale(colorFill))
+
+    //     // circle legend
+    //     svg.append("g")
+    //         .attr("class", "legendSize")
+    //         .attr("transform", "translate(50, 200)")
+    //         .call( d3.legendSize()
+    //             .scale(scale)
+    //             .shape('circle')
+    //             .shapePadding(23)
+    //             .labelOffset(20)
+    //             .orient('horizontal')
+    //     );
+
+    }
+
+    function drawCircleLegend(selection, test_centers){
+
+        let svg = selection.append("svg")
+            .attr('width', 500)
+            .attr('height', 200 )
 
         let scale = d3.scaleLinear()
             .domain( d3.extent(test_centers.map(d => +d.events[0].CAPACITY)) )
-    .range([5, 20])
-
+            .range([5, 20])
 
         // circle legend
         svg.append("g")
             .attr("class", "legendSize")
-            .attr("transform", "translate(150, 50)")
+            .attr("transform", "translate(50, 0)")
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
@@ -214,7 +235,6 @@ function seasonalMaps() {
                 .labelOffset(20)
                 .orient('horizontal')
         );
-
     }
 
     // This function maps all the test center locations on the US State map.
