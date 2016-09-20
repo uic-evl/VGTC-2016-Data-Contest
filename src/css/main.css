@@ -211,3 +211,8 @@ circle.swatch {
 #chartCanvas .domain {
     visibility: hidden;
 }
+
+.voronoi-legend-title{
+    font: 40px sans-serif;
+    text-anchor: middle;
+}
