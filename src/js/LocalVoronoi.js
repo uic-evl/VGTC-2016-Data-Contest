@@ -358,7 +358,12 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
-        .style("stroke", "#e34a33")
+        .style("stroke", (d) => {
+            if (d.pID == 1 || d.pID == 2)
+              return "none";
+            else
+              return "#e34a33";
+        })
         .style("stroke-width", 0.05)
         .on("click", (d) => {
           console.log(d);
@@ -482,6 +487,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       map.select("#county17031")
         .style("opacity", 1)
         .style("stroke", "white")
+        .style("stroke-width", dotScale * 4 / scale)
         .moveToFront();
     }
   }
