@@ -159,3 +159,16 @@ header{
     font-size: 40px;
     text-align: center;
 }
+
+.voronoi-container{
+    border-color: black;
+    border-style: dashed;
+    border-width: thick;
+    margin-top: 20px
+}
+
+.seasonal-container{
+    border-color: black;
+    border-style: ridge;
+    border-width: 10px;
+}

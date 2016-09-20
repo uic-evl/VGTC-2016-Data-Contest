@@ -2,12 +2,12 @@ function seasonalMaps() {
 
     const margin = {
             top: 10,
-            right: 30,
-            bottom: 30,
-            left: 30
+            right: 20,
+            bottom: 10,
+            left: 10
         },
-        width = 400 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+        width = 650 - margin.left - margin.right,
+        height = 900 - margin.top - margin.bottom;
 
     const colorCode = d3.scaleOrdinal()
         .domain([ "HIGH SCHOOL", "4 YR COLLEGE/UNIVERSITY", "2 YR COMM COLLEGE", "JR HIGH/MIDDLE SCHOOL", "OTHER", "TECH HIGH SCHOOL", "TECH COLLEGE", "ELEMENTARY SCHOOL", "MILITARY FACILITY", "CORRECTIONAL INSTITUTION", "" ])

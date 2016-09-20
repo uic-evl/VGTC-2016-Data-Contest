@@ -2,8 +2,8 @@
 /* global topojson */
 /* global d3-voronoi */
 
-function createLocalVoronoi(svgID, columnID, stateOrCounty) {
-  let WIDTH = d3.select(columnID).node().clientWidth;
+function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
+  let WIDTH = d3.select(columnID).node().clientWidth - 40;
   let HEIGHT = WIDTH * 1.5;
 
   let dotScale = window.innerWidth/1920;
@@ -11,6 +11,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty) {
   let zipData = [];
   let testCenterData = {};
   let testCenterIDs = [];
+
+  // let fakeDataIDs = ["2268870", "2273631", "2269023", "2273126", "1", "2"];
 
   let mySVG = d3.select(svgID)
     .attr("width", WIDTH)
@@ -95,23 +97,52 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty) {
 
         // code to manufacture fake data
 
-        // change data from an existing test center
-        // testCenterData["2274200"].testEvents[0].assigned = 400;
+        if(useFakeData) {
+          // add a new test center
 
-        // add a new test center
-        /*
-        testCenterData["1"] = {
-          pID: 1,
-          lat: 41.95,
-          long: -88.160356,
-          tcID: 1,
-          testEvents: [{
-            assigned: 20,
-            capacity: 200
-          }]
-        };
-        testCenterIDs.push("1");
-        */
+          testCenterData["1"] = {
+            pID: 1,
+            lat: 42.095,
+            long: -87.787,
+            tcID: 1,
+            testEvents: [{
+              assigned: 80,
+              capacity: 200
+            }],
+            fake: true
+          };
+          testCenterIDs.push("1");
+
+          // change data from an existing test center
+          testCenterData["2273631"].testEvents[0].assigned = 600;
+          testCenterData["2273631"].fake = true;
+          // change data from an existing test center
+          testCenterData["2268870"].testEvents[0].assigned = -800;
+          testCenterData["2268870"].fake = true;
+
+          // add a second new test center
+          testCenterData["2"] = {
+            pID: 2,
+            lat: 41.755,
+            long: -87.860,
+            tcID: 2,
+            testEvents: [{
+              assigned: 80,
+              capacity: 200
+            }],
+            fake: true
+          };
+          testCenterIDs.push("2");
+
+          // change data from an existing test center
+          testCenterData["2269023"].testEvents[0].assigned = -300;
+          testCenterData["2269023"].fake = true;
+          testCenterData["2269024"].fake = true;
+          // change data from an existing test center
+          testCenterData["2273126"].testEvents[0].assigned = -100;
+          testCenterData["2273126"].fake = true;
+        }
+
 
 
 
@@ -195,8 +226,12 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty) {
 
           return percent > 1 ? "#FF0000" : voronoiFill(percent);
         })
-        .style("stroke", "red")
-        .style("stroke-width", 0.15)
+        .style("stroke", (d) => {
+          return d.fake ? "yellow" : "red";
+        })
+        .style("stroke-width", (d) => {
+          return d.fake ? 0.5 : 0.15;
+        })
         .on("click", (d) => {
           console.log(d);
           console.log(d3.mean(d.testEvents, (el) => {
@@ -341,7 +376,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty) {
       //   .domain(testCenterSize.domain().map(el => el / scale));
 
       map.selectAll(".voronoiPath")
-        .style("stroke-width", dotScale * 0.5 / scale);
+        .style("stroke-width", (d) => {
+          return (dotScale / scale) * d.fake ? 0.25 : 0.1;
+        });
 
       map.selectAll(".testCenter")
         .style("stroke-width", dotScale * 0.5 / scale)
