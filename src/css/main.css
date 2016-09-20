@@ -208,7 +208,11 @@ circle.swatch {
     text-align: center;
 }
 
-#chartCanvas .domain {
+#expenseCanvas .domain {
+    visibility: hidden;
+}
+
+#capacityCanvas .domain {
     visibility: hidden;
 }
 
