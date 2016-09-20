@@ -37,6 +37,7 @@ var App = App || {};
         createLocalVoronoi("#something", "#voronoiCol", "state");
         createLocalVoronoi("#something2", "#voronoiCol2", "county");
         createLocalVoronoi("#something3", "#voronoiCol3", "county");
+        seasonalMaps();
     };
 
 })();
