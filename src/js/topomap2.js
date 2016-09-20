@@ -74,7 +74,7 @@ TopoMap2.prototype = {
             .attr("width", 35)
             .attr("height", 40)
             .attr("transform", "translate (" + (map.width - 110) + "," + (map.height - 220) + ")")
-            .style("fill", function(d) { return map.quantizeScale(d[0]); });
+            .style("fill", function(d,i) { if(i==0) return "none"; else return map.quantizeScale(d[0]); });
 
         li.selectAll("text")
             .data(qrange(map.quantizeScale.domain()[1], map.quantizeScale.range().length))
@@ -83,7 +83,7 @@ TopoMap2.prototype = {
             .attr("x", 70)
             .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
             .attr("transform", "translate (" + (map.width - 105) + "," + (map.height - 220) + ")")
-            .text(function(d) { return "< " + format(d); });
+            .text(function(d) {if(d!=0) return "< " + format(d); });
     },
 
     getValue: function(d, chartType, year) {
@@ -145,7 +145,7 @@ TopoMap2.prototype = {
             .domain([0, map.maxValue])
             .range(colorScale_expense);
         }
-        else 
+        else
         {
         	var colorScale_util = ['#000000','#cbc9e2','#9e9ac8','#6a51a3'];
         	map.quantizeScale = d3.scaleQuantize()
