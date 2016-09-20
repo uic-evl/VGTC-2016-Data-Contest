@@ -207,3 +207,7 @@ circle.swatch {
     font-size: 50px;
     text-align: center;
 }
+
+#chartCanvas .domain {
+    visibility: hidden;
+}

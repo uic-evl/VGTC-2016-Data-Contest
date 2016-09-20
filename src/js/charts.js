@@ -83,6 +83,7 @@ var Chart = Class.extend({
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
             .attr("transform", "translate(" + (chartLeftMargin) +",0)")
+            .attr('id', 'yAxis')
             .call(yAxis)
             .append("text")
             .attr("class", "label")
@@ -115,11 +116,11 @@ var Chart = Class.extend({
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
             .attr("dy", "-0.3rem")
-            .style("text-anchor", "end")
-            .text("State");
+            .style("text-anchor", "end");
+            //.text("State");
 
         var stateFillColor = "rgb(180,108,112)";
-        var stateEmptyColor = "rgb(180,180,180)"
+        var stateEmptyColor = "rgb(180,180,180)";
         var bar = stateChartBars.enter()
                 .append("g");
         
