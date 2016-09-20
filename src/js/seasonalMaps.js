@@ -33,7 +33,7 @@ function seasonalMaps() {
         drawZipCodeMap(d3.select("#winter"), zipmap, zip_info, test_centers, season_count = 2)
         drawZipCodeMap(d3.select("#spring"), zipmap, zip_info, test_centers, season_count = 3)
         drawZipCodeMap(d3.select("#summer"), zipmap, zip_info, test_centers, season_count = 4)
-        drawLegend(d3.select("#legend"), zipmap, zip_info, test_centers)
+        drawLegend(d3.select("#season-legend"), zipmap, zip_info, test_centers)
     }
 
 
