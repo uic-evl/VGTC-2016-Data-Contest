@@ -182,3 +182,7 @@ header{
 #chartCanvas .domain {
     visibility: hidden;
 }
+
+#chartCanvas .domain {
+    visibility: hidden;
+}
