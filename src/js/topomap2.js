@@ -164,7 +164,7 @@ TopoMap2.prototype = {
 
 
         // set up d3 geo projections and add map borders: land, states and counties
-        var projection = d3.geoAlbersUsa()
+        var projection = d3.geoAlbers()
             .scale(map.scale).translate([map.width / 2, map.height / 2]);
         map.path = d3.geoPath().projection(projection);
 
