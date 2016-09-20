@@ -1,16 +1,20 @@
 var Chart = Class.extend({
     init: function (divId, svgId, csvPath) {
         var box = this.getBox(divId);
-        var ratio = 32.0/9.0;
-        if (box.height < box.width/ratio) {
+        var ratio = 16.0/9.0;
+        var height = box.width/ratio;
+        if (box.height < height) {
             this.setHeightForAspectRatio(divId, ratio);
         }
         this.svg = d3.select("#" + svgId)
             .style("width", box.width)
-            .style("height", box.width/ratio);
+            .style("height", height)
+            .attr("viewBox", "0 0 1000 " + parseInt(1000.0/ratio) )
+            .attr("preserveAspectRatio", "xMinYMin meet");
         console.log(box);
         d3.csv (csvPath, this.process.bind(this));
         this.svgId = svgId;
+        this.aspect = ratio;
     },
     getBox: function(elemId) {
         var e = document.getElementById(elemId);
@@ -42,13 +46,13 @@ var Chart = Class.extend({
     },
     utilizationChart: function(states) {
         var rect = this.getBox(this.svgId);
-        chartTop = rect.top;
-        chartLeft = rect.left;
+        var chartTop = 0;
+        var chartLeft = 0;
 
-        chartWidth = parseInt(this.svg.style("width"));
-        chartLeftMargin = chartWidth * 0.03;
-        chartHeight = parseInt(this.svg.style("height")) * 0.6;
-        chartTopMargin = chartHeight * 0.06;
+        var chartWidth = 1000.0;
+        var chartLeftMargin = chartWidth * 0.04;
+        var chartHeight = 0.8*chartWidth/this.aspect;
+        var chartTopMargin = chartHeight * 0.06;
         /*console.log(chartHeight,chartWidth,chartLeft,chartTop);
         console.log();*/
         var stateBars = this.svg.selectAll(".stateChartBar")
@@ -56,7 +60,7 @@ var Chart = Class.extend({
 
         var stateChartXScale = d3.scaleOrdinal()
                 .range(states.map(function(d, i) {
-                    var left = chartLeft + 1.5*chartLeftMargin;
+                    var left = chartLeft + 2*chartLeftMargin;
                     var right = chartLeft + chartWidth;
                     return left + (right - left)*i/states.length;
                 }));
@@ -79,7 +83,7 @@ var Chart = Class.extend({
             .attr("class", "axis")
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
-            .attr("transform", "translate(" + (chartLeft+chartLeftMargin) +","+ (chartTop) + ")")
+            .attr("transform", "translate(" + (chartLeftMargin) +",0)")
             .call(yAxis)
             .append("text")
             .attr("class", "label")
@@ -102,7 +106,7 @@ var Chart = Class.extend({
             .attr("class", "axis")
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
-            .attr("transform", "translate(" + (chartLeft) +","+ (chartTop+chartHeight + chartTopMargin) + ")")
+            .attr("transform", "translate(0,"+ (chartHeight + chartTopMargin) + ")")
             .call(xAxis)
             .append("text")
             .attr("class", "label")
@@ -115,21 +119,22 @@ var Chart = Class.extend({
             .style("text-anchor", "end")
             .text("State");
 
-        var stateFillColor = "rgb(180,128,132)";
+        var stateFillColor = "rgb(180,118,120)";
         var stateEmptyColor = "rgb(180,180,180)"
         var bar = stateChartBars.enter()
                 .append("g");
+        var barWidth = 10.0;
 
         bar.append("rect")
-            .attr("x", function(d, i){ return stateChartXScale(d.STATE); })
+            .attr("x", function(d, i){ return stateChartXScale(d.STATE) - barWidth/2.0; })
             .attr("y", function(d){ return stateChartYScale(d.CAPACITY/d.Centers); })
-            .attr("width", "1%")
+            .attr("width", barWidth)
             .attr("fill", stateEmptyColor)
             .attr("height", function(d){ return (chartTop + chartHeight - stateChartYScale(d.CAPACITY/d.Centers)); });
         bar.append("rect")
-            .attr("x", function(d, i){ return stateChartXScale(d.STATE); })
+            .attr("x", function(d, i){ return stateChartXScale(d.STATE) - barWidth/2.0; })
             .attr("y", function(d){ return stateChartYScale(d.ASSIGNED/d.Centers); })
-            .attr("width", "1%")
+            .attr("width", barWidth)
             .attr("fill", stateFillColor)
             .attr("height", function(d){ return (chartTop + chartHeight - stateChartYScale(d.ASSIGNED/d.Centers)); });
         var legend = this.svg.append("g");
