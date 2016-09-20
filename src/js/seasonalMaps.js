@@ -7,7 +7,7 @@ function seasonalMaps() {
             left: 10
         },
         width = 650 - margin.left - margin.right,
-        height = 900 - margin.top - margin.bottom;
+        height = 800 - margin.top - margin.bottom;
 
     const colorCode = d3.scaleOrdinal()
         .domain([ "HIGH SCHOOL", "4 YR COLLEGE/UNIVERSITY", "2 YR COMM COLLEGE", "JR HIGH/MIDDLE SCHOOL", "OTHER", "TECH HIGH SCHOOL", "TECH COLLEGE", "ELEMENTARY SCHOOL", "MILITARY FACILITY", "CORRECTIONAL INSTITUTION", "" ])
@@ -187,7 +187,7 @@ function seasonalMaps() {
 
         let svg = selection.append("svg")
             .attr('width', 500)
-            .attr('height', 100 )
+            .attr('height', 110 )
 
         //let colorFill = d3.scaleLinear()
         //    .domain( zip_info.extent )
@@ -195,7 +195,7 @@ function seasonalMaps() {
 
         svg.append("g")
             .attr("class", "legendQuant")
-            .attr("transform", "translate(20,20)")
+            .attr("transform", "translate(50,20)")
             .call( d3.legendColor().scale(colorFill))
 
         let scale = d3.scaleLinear()
@@ -206,7 +206,7 @@ function seasonalMaps() {
         // circle legend
         svg.append("g")
             .attr("class", "legendSize")
-            .attr("transform", "translate(150, 50)")
+            .attr("transform", "translate(200, 50)")
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
