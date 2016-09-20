@@ -1,11 +1,9 @@
 var Chart = Class.extend({
-    init: function (divId, svgId, csvPath) {
+    init: function (divId, svgId, csvPath, height) {
         var box = this.getBox(divId);
-        var ratio = 32.0/9.0;
-        var height = box.width/ratio;
-        if (box.height < height) {
-            this.setHeightForAspectRatio(divId, ratio);
-        }
+        var ratio = box.width/height;
+        console.log("ratio:" + ratio);
+        this.setHeightForAspectRatio(divId, ratio);
         this.svg = d3.select("#" + svgId)
             .style("width", box.width)
             .style("height", height)
@@ -107,16 +105,16 @@ var Chart = Class.extend({
             .attr("class", "axis")
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
-            .attr("transform", "translate(0,"+ (chartHeight + chartTopMargin) + ")")
+            .attr("transform", "translate(0,"+ (chartHeight + chartTopMargin*0.75) + ")")
             .call(xAxis)
             .append("text")
             .attr("class", "label")
-            .attr("transform", "translate(" + (chartWidth) + "," + (-chartTopMargin) + ")")
+            .attr("transform", "translate(" + (chartWidth) + ",0)")
             .attr("x", -chartLeftMargin/2)
             .attr("y", 0)
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
-            .attr("dy", "0.7rem")
+            .attr("dy", "-0.3rem")
             .style("text-anchor", "end")
             .text("State");
 

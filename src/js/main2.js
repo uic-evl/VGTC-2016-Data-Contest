@@ -38,7 +38,7 @@ var App = App || {};
         createLocalVoronoi("#something2", "#voronoiCol2", "county", false);
         createLocalVoronoi("#something3", "#voronoiCol3", "county", true);
         var overViewChart = new Chart();
-        overViewChart.init("overViewChart", "chartCanvas", "./data/stateSummary.csv");
+        overViewChart.init("overViewChart", "chartCanvas", "./data/stateSummary.csv", 900);
         seasonalMaps();
     };
 
