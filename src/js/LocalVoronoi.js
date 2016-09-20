@@ -301,7 +301,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("stroke", (d) => {
           //return d.fake ? "white" : "red";
-          return d.fake ? "yellow" : "gray";
+          return d.fake ? "white" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
