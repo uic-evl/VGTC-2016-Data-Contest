@@ -227,7 +227,7 @@ function seasonalMaps() {
         // circle legend
         svg.append("g")
             .attr("class", "legendSize")
-            .attr("transform", "translate(50, 0)")
+            .attr("transform", "translate(50, 50)")
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
