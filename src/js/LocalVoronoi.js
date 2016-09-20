@@ -227,7 +227,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return percent > 1 ? "#FF0000" : voronoiFill(percent);
         })
         .style("stroke", (d) => {
-          return d.fake ? "yellow" : "red";
+          //return d.fake ? "yellow" : "red";
+          return d.fake ? "red" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -307,7 +308,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "black";
+              return "red";
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
@@ -380,7 +381,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       map.selectAll(".voronoiPath")
         .style("stroke-width", (d) => {
-          return (dotScale / scale) * d.fake ? 0.25 : 0.1;
+          return (dotScale / scale) * d.fake ? 0.25 : 0.05;
         });
 
       map.selectAll(".testCenter")
