@@ -74,9 +74,9 @@ var Chart = Class.extend({
         
         var yAxis = d3.axisLeft()
             .scale(stateChartYScale)
-            .tickSizeInner(chartWidth/100.0)
-            .tickSizeOuter(chartWidth/100.0)
-            .tickPadding(5);
+            .tickSizeInner(0)
+            .tickSizeOuter(0)
+            .tickPadding(0);
  
         this.svg.append("g")
             .attr("class", "axis")
@@ -89,7 +89,7 @@ var Chart = Class.extend({
             .attr("class", "label")
             .attr("transform", "rotate(-90)")
             .attr("x", 0)
-            .attr("y", 0)
+            .attr("y", -chartLeftMargin)
             .attr("fill", "rgb(30,30,30)")
             .attr("font-size", "0.7rem")
             .attr("dy", ".7rem")
