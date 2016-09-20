@@ -306,7 +306,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return dotSize(d3.sum(d.testEvents, (el) => el.capacity));
         })
         .style("fill", (d) => {
-          return "url(#grad" + Number(d.tcID) + ")";
+            if (d.pID == 1 || d.pID == 2)
+              return "black";
+            else
+              return "url(#grad" + Number(d.tcID) + ")";
         })
         .style("stroke", "green")
         .style("stroke-width", 0.05)

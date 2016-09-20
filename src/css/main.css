@@ -161,16 +161,16 @@ header{
 }
 
 .voronoi-container{
-    border-color: black;
+    border-color: white;
     border-style: dashed;
     border-width: thick;
-    margin-top: 20px
+    margin-top: 0px
 }
 
 .seasonal-container{
-    border-color: black;
+    border-color: white;
     border-style: ridge;
-    border-width: 10px;
+    border-width: 0px;
 }
 
 .comparison-title{
