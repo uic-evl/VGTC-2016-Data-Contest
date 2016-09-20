@@ -33,7 +33,7 @@ function seasonalMaps() {
         drawZipCodeMap(d3.select("#winter"), zipmap, zip_info, test_centers, season_count = 2)
         drawZipCodeMap(d3.select("#spring"), zipmap, zip_info, test_centers, season_count = 3)
         drawZipCodeMap(d3.select("#summer"), zipmap, zip_info, test_centers, season_count = 4)
-
+        drawLegend(d3.select("#legend"), zipmap, zip_info, test_centers)
     }
 
 
@@ -162,6 +162,58 @@ function seasonalMaps() {
         console.log(opt_testcenter_pos)
 
         return [opt_testcenter_neg, opt_testcenter_pos];
+
+    }
+
+    function drawLegend(selection, chi, zip_info, test_centers){
+        let zipBoundaries = chi.objects.boundaries, //zip_codes_for_the_usa,
+            zipGeoJson = topojson.feature(chi, {
+                type: "GeometryCollection",
+                geometries: zipBoundaries.geometries
+            }),
+            neighbors = topojson.neighbors(zipBoundaries.geometries);
+
+        // Projection
+        let projection = d3.geoAlbers()
+            .fitSize([width, height], zipGeoJson)
+
+        // Path generator
+        let path = d3.geoPath()
+            .projection(projection);
+
+        let colorFill = d3.scaleLinear()
+            .domain( zip_info.extent )
+            .range(['#fff7fb','#023858'])
+
+        let svg = selection.append("svg")
+            .attr('width', 500)
+            .attr('height', 100 )
+
+        //let colorFill = d3.scaleLinear()
+        //    .domain( zip_info.extent )
+        //    .range(['#fff7fb','#023858'])
+
+        svg.append("g")
+            .attr("class", "legendQuant")
+            .attr("transform", "translate(20,20)")
+            .call( d3.legendColor().scale(colorFill))
+
+        let scale = d3.scaleLinear()
+            .domain( d3.extent(test_centers.map(d => +d.events[0].CAPACITY)) )
+    .range([5, 20])
+
+
+        // circle legend
+        svg.append("g")
+            .attr("class", "legendSize")
+            .attr("transform", "translate(150, 50)")
+            .call( d3.legendSize()
+                .scale(scale)
+                .shape('circle')
+                .shapePadding(23)
+                .labelOffset(20)
+                .orient('horizontal')
+        );
 
     }
 
