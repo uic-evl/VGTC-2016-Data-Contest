@@ -172,3 +172,9 @@ header{
     border-style: ridge;
     border-width: 10px;
 }
+
+.comparison-title{
+    border-bottom: thick solid #000000;
+    margin-left: 50px;
+    margin-right: 50px;
+}
