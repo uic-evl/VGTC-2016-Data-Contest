@@ -28,6 +28,8 @@
     <script src="./src/js/nationalOverview.js"></script>
     <script src="./src/js/map.js"></script>
     <script src="./src/js/LocalVoronoi.js"></script>
+    <script src="./src/js/class.js"></script>
+    <script src="./src/js/charts.js"></script>
     <script src="./src/js/main2.js"></script>
 
 </head>
@@ -127,6 +129,18 @@
             </div>
         </div>
         <div class="col-md-1">&nbsp;</div>
+    </div>
+     <div class="row" id="overViewRow">
+        <div class="col-md-4" id="overViewCol1">
+            <div class="col-md-12 head">
+                <span class="headline">State-wise average capacity utilization</span>
+            </div>
+            <div class="col-md-12" id="overViewChart">
+                <svg id="chartCanvas"></svg>
+            </div>
+        </div>
+        <div class="col-md-8" id="overViewCol2">&nbsp;</div>
+        
     </div>
 </body>
 

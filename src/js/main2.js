@@ -37,6 +37,10 @@ var App = App || {};
         createLocalVoronoi("#something", "#voronoiCol", "state");
         createLocalVoronoi("#something2", "#voronoiCol2", "county");
         createLocalVoronoi("#something3", "#voronoiCol3", "county");
+
+        
+        var overViewChart = new Chart();
+        overViewChart.init("overViewChart", "chartCanvas", "./data/stateSummary.csv");
     };
 
 })();

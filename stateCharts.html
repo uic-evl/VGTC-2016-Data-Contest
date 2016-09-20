@@ -1,0 +1,26 @@
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./src/css/main.css" />
+    <script src="./src/js/class.js"></script>
+    <script src="./src/js/charts.js"></script>
+    <script type="text/javascript">
+    
+
+    
+    function init(){
+        var overViewChart = new Chart();
+        overViewChart.init("overViewChart", "chartCanvas", "./data/stateSummary.csv");
+    }
+
+    </script>
+</head>
+<body onload="init()" onResize="window.location=window.location;">
+    <div id="overViewChart">
+        <p> States</p>
+        <svg id="chartCanvas"></svg>
+    </div>
+</body>
+</html>
