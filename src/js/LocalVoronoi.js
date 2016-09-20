@@ -354,7 +354,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "#31a354";
+              return "yellow";
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
