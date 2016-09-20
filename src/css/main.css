@@ -197,3 +197,13 @@ header{
 #chartCanvas .domain {
     visibility: hidden;
 }
+
+circle.swatch {
+    fill: #e44;
+    stroke: black;
+}
+
+.legend-seasonal{
+    font-size: 50px;
+    text-align: center;
+}

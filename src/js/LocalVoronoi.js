@@ -82,7 +82,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("x", 120)
           .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
           .attr("transform", "translate (" + (40) + "," + (HEIGHT - 340) + ")")
-          .text(function(d) { return "< " + format(d); });
+          .text(function(d) {
+              return "< " + d;
+          });
   }
 
   function readAllPoints() {
