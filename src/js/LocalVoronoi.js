@@ -302,35 +302,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           }));
         });
 
-      // create map
-      map.append("g")
-        .attr("class", "counties")
-      .selectAll("path")
-        // .data(topojson.feature(us, us.objects.states).features) // states
-        .data(topojson.feature(us, us.objects.counties).features) // counties
-      .enter().append("path")
-        .attr("id", (d) => {
-          return "county" + d.id;
-        })
-        .attr("d", path)
-        .style("fill", "none")
-        .style("stroke", "black")
-        .style("stroke-width", 1);
-
-      // create map
-      map.append("g")
-        .attr("class", "states")
-      .selectAll("path")
-        // .data(topojson.feature(us, us.objects.states).features) // states
-        .data(topojson.feature(us, us.objects.states).features) // counties
-      .enter().append("path")
-        .attr("id", (d) => {
-          return "state" + d.id;
-        })
-        .attr("d", path)
-        .style("fill", "none")
-        .style("stroke", "black")
-        .style("stroke-width", 5);
+      map.selectAll(".voronoiPath").filter((d) => d.fake)
+        .moveToFront();
 
       // create zip points
       map.selectAll(".zip")
@@ -406,6 +379,36 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("stop-color", "white");
 
+      // create map
+      map.append("g")
+        .attr("class", "states")
+      .selectAll("path")
+        // .data(topojson.feature(us, us.objects.states).features) // states
+        .data(topojson.feature(us, us.objects.states).features) // counties
+      .enter().append("path")
+        .attr("id", (d) => {
+          return "state" + d.id;
+        })
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", "black")
+        .style("stroke-width", 5);
+
+      // create map
+      map.append("g")
+        .attr("class", "counties")
+      .selectAll("path")
+        // .data(topojson.feature(us, us.objects.states).features) // states
+        .data(topojson.feature(us, us.objects.counties).features) // counties
+      .enter().append("path")
+        .attr("id", (d) => {
+          return "county" + d.id;
+        })
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", "black")
+        .style("stroke-width", 1);
+
       // zoom into Cook County
       if(stateOrCounty === "state") {
         zoomIntoID("#state17");
@@ -434,7 +437,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       .select(".counties")
       .selectAll("path")
         .style("stroke-width", dotScale * 1 / scale)
-        .style("opacity", stateOrCounty === "state" ? 0 : 1);
+        .style("opacity", (d) => {
+          return stateOrCounty === "state" ? 0 : 1;
+        });
 
       map.select(".states")
         .selectAll("path")
@@ -462,8 +467,18 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         .style("stroke-width", dotScale * 0.5 / scale)
         .style("opacity", stateOrCounty === "state" ? 0 : 1);
 
-      map.select(id).style("stroke-width", dotScale * 4 / scale)
+      map.select(id).style("stroke-width", dotScale * 4 / scale);
+
+      map.select("#county17031")
+        .style("opacity", 1)
+        .style("stroke", "yellow")
+        .moveToFront();
     }
   }
 }
 
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
