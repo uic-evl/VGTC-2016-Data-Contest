@@ -26,9 +26,64 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
   let map = mySVG.append("g")
     .attr("class", "usMap");
 
+  let quantizeScale = null;
+
   // read data in
 
   readAllPoints();
+
+  function drawLegend(){
+      // return quantize thresholds for the key
+      var lineheight = 60;
+      var format = d3.format(".1s");
+
+      var qrange = function(max, num) {
+        var a = [];
+        for (var i=0; i<num; i++) {
+            a.push(i*max/num);
+        }
+        return a;
+      }
+
+      var legend = mySVG.append("g")
+        .attr("class", "legend-voronoi");
+      // make legend box
+      var lb = legend.append("rect")
+        .attr("transform", "translate (" + (10) + "," + (HEIGHT - 360) + ")")
+        .style("fill", "#e5e5e5")
+        .attr("width", 270)
+        .attr("height", 350);
+
+      // make quantized key legend items
+      var li = legend.append("g")
+          .attr("transform", "translate (8,"+(10)+")")
+          .attr("class", "legend-items");
+
+      li.selectAll("rect")
+          .data(quantizeScale.range().map(function(color) {
+              var d = quantizeScale.invertExtent(color);
+              if (d[0] == null) d[0] = x.domain()[0];
+              if (d[1] == null) d[1] = x.domain()[1];
+              return d;
+          }))
+          .enter().append("rect")
+          .attr("y", function(d, i) { return i*lineheight; })
+          .attr("width", 40)
+          .attr("height", 40)
+          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 340) + ")")
+          .attr("class", "legend-voronoi-square")
+          .style("stroke", "black")
+          .style("fill", function(d) { return quantizeScale(d[0]); });
+
+      li.selectAll("text")
+          .data(qrange(quantizeScale.domain()[1], quantizeScale.range().length))
+          .enter().append("text")
+          .attr("class", "legend-text-voronoi")
+          .attr("x", 120)
+          .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
+          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 340) + ")")
+          .text(function(d) { return "< " + format(d); });
+  }
 
   function readAllPoints() {
     d3.csv("./data/ACT_AllPointsFile.csv")
@@ -147,6 +202,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
 
         drawMap();
+
       });
 
       // svg.selectAll(".testCenter")
@@ -169,6 +225,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
     let voronoiFill = d3.scaleLinear()
       .domain([0, 1])
       .range(["white", "blue"]);
+
+    quantizeScale = d3.scaleQuantize()
+          .domain([0, 1])
+          .range(["white", "#ededff", "#d4d4ff", "#4762c8", "blue"]);
 
     console.log("Zip Extent", d3.extent(zipData, el => el.population));
     console.log("Capacity Extent", d3.extent(testCenterIDs, (el) => {
@@ -227,7 +287,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return percent > 1 ? "#FF0000" : voronoiFill(percent);
         })
         .style("stroke", (d) => {
-          return d.fake ? "yellow" : "red";
+          //return d.fake ? "yellow" : "red";
+          return d.fake ? "red" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -307,7 +368,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "black";
+              return "red";
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
@@ -346,8 +407,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       // zoom into Cook County
       if(stateOrCounty === "state") {
         zoomIntoID("#state17");
+          drawLegend();
       } else {
         zoomIntoID("#county17031");
+          drawLegend();
       }
 
     });
@@ -380,7 +443,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       map.selectAll(".voronoiPath")
         .style("stroke-width", (d) => {
-          return (dotScale / scale) * d.fake ? 0.25 : 0.1;
+          return (dotScale / scale) * d.fake ? 0.25 : 0.05;
         });
 
       map.selectAll(".testCenter")
@@ -401,3 +464,4 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
     }
   }
 }
+

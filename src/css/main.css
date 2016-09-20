@@ -155,6 +155,11 @@ header{
     font-size: 10px;
 }
 
+.legend-box-voronoi {
+    fill: "#e5e5e5";
+    font-size: 10px;
+}
+
 .year{
     font-size: 40px;
     text-align: center;
@@ -177,6 +182,16 @@ header{
     border-bottom: thick solid #000000;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+.legend-text-voronoi {
+    fill: #777;
+    font: 40px sans-serif;
+    text-anchor: middle;
+}
+
+.legend-voronoi-square {
+    stroke: "black";
 }
 
 #chartCanvas .domain {
