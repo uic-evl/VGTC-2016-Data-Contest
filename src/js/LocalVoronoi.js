@@ -130,7 +130,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         .text("Capacity")
         .attr("class", "voronoi-legend-title")
         .attr("x", 410)
-        .attr("y", function(){ return HEIGHT - 170 })
+        .attr("y", function(){ return HEIGHT - 160 })
         .style("z-index", -1);
   }
 
