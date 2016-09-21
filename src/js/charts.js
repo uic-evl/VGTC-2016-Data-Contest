@@ -97,8 +97,8 @@ var Chart = Class.extend({
             .attr("fill", "rgb(30,30,30)")
             .attr("dy", ".7rem")
             .style("text-anchor", "end")
-            .text("Average capacity");
-
+            //.text("Average capacity");
+            ;
         var xAxis = d3.axisBottom()
             .scale(stateChartXScale)
             .tickSizeInner(chartWidth/100.0)
@@ -220,8 +220,8 @@ var Chart = Class.extend({
             .attr("y", -chartLeftMargin - 5)
             .attr("fill", "rgb(30,30,30)")
             .attr("dy", ".7rem")
-            .style("text-anchor", "end")
-            .text("Average expense in $");
+            .style("text-anchor", "end");
+            //.text("Average expense in $");
 
         var xAxis = d3.axisBottom()
             .scale(stateChartXScale)
