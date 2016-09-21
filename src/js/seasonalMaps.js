@@ -186,14 +186,22 @@ function seasonalMaps() {
             .domain( zip_info.extent )
             .range(['#fff7fb','#023858'])
 
+        let colorLegend = d3.legendColor()
+            .scale(colorFill)
+            .shapeWidth(50)
+            .shapeHeight(50)
+
         let svg = selection.append("svg")
             .attr('width', 400)
-            .attr('height', 100 )
+            .attr('height', 250 )
         
          svg.append("g")
              .attr("class", "legendQuant")
-             .attr("transform", "translate(70,5)")
-             .call( d3.legendColor().scale(colorFill))
+             .attr("transform", "translate(70,5)") 
+             //.call( d3.legendColor().scale(colorFill))
+             .call(colorLegend)
+             .style("font-size","20px")
+
 
     //     let scale = d3.scaleLinear()
     //         .domain( d3.extent(test_centers.map(d => +d.events[0].CAPACITY)) )
@@ -222,7 +230,7 @@ function seasonalMaps() {
 
         let scale = d3.scaleLinear()
             .domain( d3.extent(test_centers.map(d => +d.events[0].CAPACITY)) )
-            .range([5, 20])
+            .range([5, 40])
 
         // circle legend
         svg.append("g")
