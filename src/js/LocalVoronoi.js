@@ -117,8 +117,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
           .attr("r", 25)
           .attr("transform", "translate (" + (40) + "," + (50) + ")")
-          .style("fill", function(d,i) { if(i==1) return "orange";
-                                         else if(i==2) return "red";
+          .style("fill", function(d,i) { if(i==0) return "orange";
+                                         else if(i==1) return "red";
                                          else return "yellow"; } )
           .style("stroke", "white")
           .style("stroke-width", 0.5)

@@ -232,3 +232,7 @@ circle.swatch {
 .axisLabel{
     font-size: 1.1rem;
 }
+
+#voronoiLegendContainer {
+    border: 1px solid black;
+}
