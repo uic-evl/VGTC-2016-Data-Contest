@@ -32,11 +32,16 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
   // read data in
 
   readAllPoints();
+  drawLegend();
 
   function drawLegend(){
       // return quantize thresholds for the key
       var lineheight = 60;
       var format = d3.format(".1s");
+
+    var myQuantizeScale = d3.scaleQuantize()
+        .domain([0, 1])
+        .range(["white", "#ededff", "#d4d4ff", "#4762c8", "blue"]);
 
       var qrange = function(max, num) {
         var a = [];
@@ -46,24 +51,25 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         return a;
       };
 
-      var legend = mySVG.append("g")
-        .attr("class", "legend-voronoi");
-
+      var legend = d3.select("#voronoiLegend")
+        // .append("g")
+        .attr("class", "legend-voronoi")
+        ;
       // make legend box
-      var lb = legend.append("rect")
-        .attr("transform", "translate (" + (10) + "," + (HEIGHT - 380) + ")")
-        .style("fill", "#e5e5e5")
-        .attr("width", 270)
-        .attr("height", 380);
+      //var lb = legend.append("rect")
+        //.attr("transform", "translate (" + (10) + "," + (HEIGHT - 380) + ")")
+        //.style("fill", "#e5e5e5")
+        //.attr("width", 270)
+        //.attr("height", 380);
 
     // make quantized key legend items
       var li = legend.append("g")
-          .attr("transform", "translate (8,"+(10)+")")
+          .attr("transform", "translate (8,"+(50)+")")
           .attr("class", "legend-items");
 
       li.selectAll("rect")
-          .data(quantizeScale.range().map(function(color) {
-              var d = quantizeScale.invertExtent(color);
+          .data(myQuantizeScale.range().map(function(color) {
+              var d = myQuantizeScale.invertExtent(color);
               if (d[0] == null) d[0] = x.domain()[0];
               if (d[1] == null) d[1] = x.domain()[1];
               return d;
@@ -72,10 +78,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("y", function(d, i) { return i*lineheight; })
           .attr("width", 40)
           .attr("height", 40)
-          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 315) + ")")
+          .attr("transform", "translate (" + (40) + "," + (65) + ")")
           .attr("class", "legend-voronoi-square")
           .style("stroke", "black")
-          .style("fill", function(d) { return quantizeScale(d[0]); });
+          .style("fill", function(d) { return myQuantizeScale(d[0]); });
 
       li.selectAll("text")
           .data(["0", "0.2", "0.4", "0.6", "0.8"])
@@ -83,7 +89,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("class", "legend-text-voronoi")
           .attr("x", 120)
           .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
-          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 315) + ")")
+          .attr("transform", "translate (" + (40) + "," + (65) + ")")
           .text(function(d) {
               return "< " + d;
           });
@@ -94,34 +100,37 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("x", 140)
           .attr("y", function(){ return HEIGHT - 335 });
 
-    var lb2 = legend.append("rect")
-        .attr("transform", "translate (" + (280) + "," + (HEIGHT - 190) + ")")
-        .style("fill", "#e5e5e5")
-        .attr("width", 300)
-        .attr("height", 190);
+    // var lb2 = legend.append("rect")
+    //     //.attr("transform", "translate (" + (280) + "," + (HEIGHT - 190) + ")")
+    //     .style("fill", "#e5e5e5")
+    //     .attr("width", 300)
+    //     .attr("height", 190);
 
     var li2 = legend.append("g")
-        .attr("transform", "translate (8,"+(10)+")")
+        .attr("transform", "translate (8,"+(150)+")")
         .attr("class", "legend-items");
 
     li2.selectAll(".circles")
-        .data(["Population", "Test Center"])
+        .data(["Population", "Test Center", "New Test Center"])
         .enter().append("circle")
           .attr("cx", 260)
           .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
           .attr("r", 25)
-          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 140) + ")")
-          .style("fill", function(d,i) { if(i==1) return "orange"; else return "red"; } )
+          .attr("transform", "translate (" + (40) + "," + (50) + ")")
+          .style("fill", function(d,i) { if(i==1) return "orange";
+                                         else if(i==2) return "red";
+                                         else return "yellow"; } )
           .style("stroke", "white")
           .style("stroke-width", 0.5)
 ;
     li2.selectAll("text")
-        .data(["Population", "Test Center"])
+        .data(["Population", "Test Center", "New Test Center"])
         .enter().append("text")
         .attr("class", "legend-text-voronoi")
-        .attr("x", 410)
-        .attr("y", function(d, i) { return (i+1)*lineheight - 20; })
-        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 130) + ")")
+        .attr("x", 400)
+        .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
+        .attr("transform", "translate (" + (10) + "," + (50) + ")")
+        .style("text-anchor", "start")
         .text(function(d) {
           return d;
         });
@@ -468,10 +477,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
       // zoom into Cook County
       if(stateOrCounty === "state") {
         zoomIntoID("#state17");
-          drawLegend();
+          //drawLegend();
       } else {
         zoomIntoID("#county17031");
-          drawLegend();
+          //drawLegend();
       }
     });
 
