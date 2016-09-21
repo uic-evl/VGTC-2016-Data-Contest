@@ -235,8 +235,19 @@ circle.swatch {
 
 #voronoiLegendContainer {
     border: 1px solid black;
+    border-width: thin;
+    margin-top: 60px;
 }
 
 #seasonalLegendContainer {
     border: 1px solid black;
+}
+
+.legend-seasonal-container{
+    border-width: thin;
+    border-color: black;
+    border-style: solid;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    margin-top: 60px;
 }
