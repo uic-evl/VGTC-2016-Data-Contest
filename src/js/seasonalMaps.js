@@ -193,11 +193,11 @@ function seasonalMaps() {
 
         let svg = selection.append("svg")
             .attr('width', 400)
-            .attr('height', 250 )
+            .attr('height', 280 )
         
          svg.append("g")
              .attr("class", "legendQuant")
-             .attr("transform", "translate(70,5)") 
+             .attr("transform", "translate(120,5)") 
              //.call( d3.legendColor().scale(colorFill))
              .call(colorLegend)
              .style("font-size","20px")
@@ -239,10 +239,11 @@ function seasonalMaps() {
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
-                .shapePadding(23)
+                .shapePadding(28)
                 .labelOffset(20)
-                .orient('horizontal')
-        );
+                .orient('horizontal'))
+                .style("font-size","20px")
+
     }
 
     // This function maps all the test center locations on the US State map.
