@@ -78,7 +78,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .style("fill", function(d) { return quantizeScale(d[0]); });
 
       li.selectAll("text")
-          .data(qrange(quantizeScale.domain()[1], quantizeScale.range().length))
+          .data(["0", "0.2", "0.4", "0.6", "0.8"])
           .enter().append("text")
           .attr("class", "legend-text-voronoi")
           .attr("x", 120)
@@ -89,39 +89,49 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           });
 
       li.append("text")
-          .text("Capacity")
+          .text("Utilization")
           .attr("class", "voronoi-legend-title")
           .attr("x", 140)
-          .attr("y", function(){ return HEIGHT - 330 });
+          .attr("y", function(){ return HEIGHT - 335 });
 
     var lb2 = legend.append("rect")
         .attr("transform", "translate (" + (280) + "," + (HEIGHT - 190) + ")")
         .style("fill", "#e5e5e5")
-        .attr("width", 270)
+        .attr("width", 300)
         .attr("height", 190);
 
-    var li2 = legend.selectAll("legendCircles")
-        .data([10, 20])
-        .enter().append("circle")
-        .attr("cx", 260)
-        .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
-        .attr("r", 25)
-        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 150) + ")")
-        .style("fill", function(d,i) { if(i==1) return "orange"; else return "red"; } )
-        .style("stroke", "white")
-        .style("stroke-width", 0.5);
+    var li2 = legend.append("g")
+        .attr("transform", "translate (8,"+(10)+")")
+        .attr("class", "legend-items");
 
+    li2.selectAll(".circles")
+        .data(["Population", "Test Center"])
+        .enter().append("circle")
+          .attr("cx", 260)
+          .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
+          .attr("r", 25)
+          .attr("transform", "translate (" + (40) + "," + (HEIGHT - 140) + ")")
+          .style("fill", function(d,i) { if(i==1) return "orange"; else return "red"; } )
+          .style("stroke", "white")
+          .style("stroke-width", 0.5)
+;
     li2.selectAll("text")
         .data(["Population", "Test Center"])
         .enter().append("text")
         .attr("class", "legend-text-voronoi")
-        .attr("x", 120)
-        .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
-        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 150) + ")")
+        .attr("x", 410)
+        .attr("y", function(d, i) { return (i+1)*lineheight - 20; })
+        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 130) + ")")
         .text(function(d) {
           return d;
         });
 
+    li2.append("text")
+        .text("Capacity")
+        .attr("class", "voronoi-legend-title")
+        .attr("x", 410)
+        .attr("y", function(){ return HEIGHT - 170 })
+        .style("z-index", -1);
   }
 
   function readAllPoints() {
