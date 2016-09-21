@@ -80,22 +80,21 @@ var Chart = Class.extend({
             .scale(stateChartYScale)
             .tickSizeInner(0)
             .tickSizeOuter(0)
-            .tickPadding(0);
+            .tickPadding(0)
+            .ticks(6);
  
         this.svg.append("g")
-            .attr("class", "axis")
+            .attr("class", "axisY")
             .attr("fill", "rgb(220,220,220)")
-            .attr("font-size", "1rem")
             .attr("transform", "translate(" + (chartLeftMargin) +",0)")
             .attr('id', 'yAxis')
             .call(yAxis)
             .append("text")
-            .attr("class", "label")
+            .attr("class", "axisLabel")
             .attr("transform", "rotate(-90)")
             .attr("x", 0)
             .attr("y", -chartLeftMargin)
             .attr("fill", "rgb(30,30,30)")
-            .attr("font-size", "0.7rem")
             .attr("dy", ".7rem")
             .style("text-anchor", "end")
             .text("Average capacity");
@@ -107,7 +106,7 @@ var Chart = Class.extend({
             .tickPadding(5);
 
         this.svg.append("g")
-            .attr("class", "axis")
+            .attr("class", "axisX")
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
             .attr("transform", "translate(0,"+ (chartHeight + chartTopMargin*0.75) + ")")
@@ -205,22 +204,21 @@ var Chart = Class.extend({
             .scale(stateChartYScale)
             .tickSizeInner(0)
             .tickSizeOuter(0)
-            .tickPadding(0);
+            .tickPadding(0)
+            .ticks(6);
  
         this.svg2.append("g")
-            .attr("class", "axis")
+            .attr("class", "axisY")
             .attr("fill", "rgb(220,220,220)")
-            .attr("font-size", "1rem")
             .attr("transform", "translate(" + (chartLeftMargin) +",0)")
             .attr('id', 'yAxis')
             .call(yAxis)
             .append("text")
-            .attr("class", "label")
+            .attr("class", "axisLabel")
             .attr("transform", "rotate(-90)")
             .attr("x", 0)
             .attr("y", -chartLeftMargin)
             .attr("fill", "rgb(30,30,30)")
-            .attr("font-size", "0.7rem")
             .attr("dy", ".7rem")
             .style("text-anchor", "end")
             .text("Average expense in $");
@@ -232,7 +230,7 @@ var Chart = Class.extend({
             .tickPadding(5);
 
         this.svg2.append("g")
-            .attr("class", "axis")
+            .attr("class", "axisX")
             .attr("fill", "rgb(220,220,220)")
             .attr("font-size", "1rem")
             .attr("transform", "translate(0,"+ (chartHeight + chartTopMargin*0.75) + ")")

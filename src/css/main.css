@@ -216,3 +216,15 @@ circle.swatch {
     font: 40px sans-serif;
     text-anchor: middle;
 }
+
+.axisY{
+    font-size: 1.1rem;
+}
+
+.axisX{
+    font-size: 0.8rem;
+}
+
+.axisLabel{
+    font-size: 1.1rem;
+}
