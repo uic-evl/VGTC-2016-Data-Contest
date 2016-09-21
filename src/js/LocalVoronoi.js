@@ -31,7 +31,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
   // read data in
 
-  readAllPoints();
+  //readAllPoints();
   drawLegend();
 
   function drawLegend(){
@@ -64,7 +64,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
     // make quantized key legend items
       var li = legend.append("g")
-          .attr("transform", "translate (8,"+(50)+")")
+          .attr("transform", "translate (8,"+(0)+")")
           .attr("class", "legend-items");
 
       li.selectAll("rect")
@@ -88,7 +88,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .enter().append("text")
           .attr("class", "legend-text-voronoi")
           .attr("x", 120)
-          .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
+          .attr("y", function(d, i) { return (i+1)*lineheight - 25; })
           .attr("transform", "translate (" + (40) + "," + (65) + ")")
           .text(function(d) {
               return "< " + d;
@@ -107,7 +107,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
     //     .attr("height", 190);
 
     var li2 = legend.append("g")
-        .attr("transform", "translate (8,"+(150)+")")
+        .attr("transform", "translate (8,"+(100)+")")
         .attr("class", "legend-items");
 
     li2.selectAll(".circles")
@@ -120,7 +120,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .style("fill", function(d,i) { if(i==0) return "orange";
                                          else if(i==1) return "red";
                                          else return "yellow"; } )
-          .style("stroke", "white")
+          .style("stroke", "black")
           .style("stroke-width", 0.5)
 ;
     li2.selectAll("text")

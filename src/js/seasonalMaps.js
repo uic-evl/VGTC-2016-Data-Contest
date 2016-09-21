@@ -194,10 +194,10 @@ function seasonalMaps() {
         let svg = selection.append("svg")
             .attr('width', 400)
             .attr('height', 300 )
-        
+
          svg.append("g")
              .attr("class", "legendQuant")
-             .attr("transform", "translate(130,10)") 
+             .attr("transform", "translate(130,10)")
              //.call( d3.legendColor().scale(colorFill))
              .call(colorLegend)
              .style("font-size","40px")
