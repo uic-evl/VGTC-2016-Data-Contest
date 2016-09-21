@@ -31,7 +31,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
   // read data in
 
-  //readAllPoints();
+  readAllPoints();
   drawLegend();
 
   function drawLegend(){
