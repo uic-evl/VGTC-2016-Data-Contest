@@ -6,8 +6,8 @@ function seasonalMaps() {
             bottom: 10,
             left: 10
         },
-        width = 600 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+        width = 700 - margin.left - margin.right,
+        height = 850 - margin.top - margin.bottom;
 
     const colorCode = d3.scaleOrdinal()
         .domain([ "HIGH SCHOOL", "4 YR COLLEGE/UNIVERSITY", "2 YR COMM COLLEGE", "JR HIGH/MIDDLE SCHOOL", "OTHER", "TECH HIGH SCHOOL", "TECH COLLEGE", "ELEMENTARY SCHOOL", "MILITARY FACILITY", "CORRECTIONAL INSTITUTION", "" ])
@@ -125,7 +125,7 @@ function seasonalMaps() {
             .data(opt_testcenter_pos)
           .enter().append('circle')
             .attr('id', d => d.TESTCENTERID )
-            .attr('r', d => 0.8*scale(+d.events[0].CAPACITY) )
+            .attr('r', d => 1.25*scale(+d.events[0].CAPACITY) )
             .attr('transform', d => 'translate(' + projection([+d.LONGITUDE, +d.LATITUDE]) + ')')
             .style('fill', d => 'url(#tc-'+d.TESTCENTERID+')') //
             .style("fill-opacity", 1)
@@ -197,10 +197,10 @@ function seasonalMaps() {
         
          svg.append("g")
              .attr("class", "legendQuant")
-             .attr("transform", "translate(120,5)") 
+             .attr("transform", "translate(130,10)") 
              //.call( d3.legendColor().scale(colorFill))
              .call(colorLegend)
-             .style("font-size","20px")
+             .style("font-size","30px")
 
 
     //     let scale = d3.scaleLinear()
@@ -225,7 +225,7 @@ function seasonalMaps() {
     function drawCircleLegend(selection, test_centers){
 
         let svg = selection.append("svg")
-            .attr('width', 500)
+            .attr('width', 600)
             .attr('height', 200 )
 
         let scale = d3.scaleLinear()
@@ -239,10 +239,10 @@ function seasonalMaps() {
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
-                .shapePadding(28)
-                .labelOffset(20)
+                .shapePadding(70)
+                .labelOffset(35)
                 .orient('horizontal'))
-                .style("font-size","20px")
+                .style("font-size","30px")
 
     }
 
