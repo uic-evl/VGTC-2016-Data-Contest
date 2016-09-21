@@ -50,7 +50,6 @@
     </div>
 
     <div class="row">
-        <div class="col-md-1">&nbsp;</div>
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-2">
@@ -121,7 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 40px;">
-                                    <div class="col-md-6" id="voronoiCol2">
+                                    <div class="col-md-6" id="voronoiCol2" style="padding-left: 50;">
                                         <div class="voronoi-container">
                                             <svg id="something2"></svg>
                                         </div>
@@ -138,13 +137,47 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-1">&nbsp;</div>
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12 head">
+                    <span class="headline">Optimal Distribution Network in Cook County per Season</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="text-align: center">
+                    <div class="year">Fall</div>
+                    <div id="fall"></div>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                    <div class="year">Winter</div>
+                    <div id="winter"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="text-align: center">
+                    <div class="year">Spring</div>
+                    <div id="spring"></div>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                    <div class="year">Summer</div>
+                    <div id="summer"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="text-align: center">
+                    <div class="legend-seasonal">Zipcode Population Density </div>
+                    <div id="season-legend"></div>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                    <div class="legend-seasonal">Test Center Capacity </div>
+                    <div id= "season-legend-circle"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row" id="overViewRow">
-         <div class="col-md-1">&nbsp;</div>
-         <div class="col-md-6" id="overViewCol1">
+         <div class="col-md-12" id="overViewCol1">
              <div class="row">
-                 
                  <div class="col-md-12" id="overViewChart">
                     <div class="row">
                         <div class="col-md-6 head" style="margin-bottom:40px;">
@@ -165,46 +198,6 @@
                      </div>
                  </div>
              </div>
-         </div>
-         <div class="col-md-4 seasonal-container" id="overViewCol2">
-            <div class="row">
-                <div class="col-md-12 head">
-                    <span class="headline">Optimal Distribution Network in Illinois per Season</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">&nbsp;</div>
-                <div class="col-md-1">&nbsp;</div>
-
-                <div class="col-md-2" style="text-align: center">
-                    <div class="year">Fall</div>
-                    <div id="fall"></div>
-                </div>
-                <div class="col-md-2" style="text-align: center">
-                    <div class="year">Winter</div>
-                    <div id="winter"></div>
-                </div>
-                <div class="col-md-2" style="text-align: center">
-                    <div class="year">Spring</div>
-                    <div id="spring"></div>
-                </div>
-                <div class="col-md-2" style="text-align: center">
-                    <div class="year">Summer</div>
-                    <div id="summer"></div>
-                </div>
-
-                <div class="col-md-1" style="text-align: center">
-                    <div class= "row">
-                        <div class="legend-seasonal">Zipcode Population Density </div>
-                        <div id="season-legend"></div>
-                    </div>
-                    <div class= "row">
-                        <div class="legend-seasonal">Test Center Capacity </div>
-                        <div id= "season-legend-circle"></div>
-                    </div>
-                </div>
-                <div class="col-md-1">&nbsp;</div>
-            </div>
          </div>
     </div>
 </div>

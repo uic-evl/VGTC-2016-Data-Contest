@@ -48,6 +48,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       var legend = mySVG.append("g")
         .attr("class", "legend-voronoi");
+
       // make legend box
       var lb = legend.append("rect")
         .attr("transform", "translate (" + (10) + "," + (HEIGHT - 380) + ")")
@@ -55,7 +56,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         .attr("width", 270)
         .attr("height", 380);
 
-      // make quantized key legend items
+    // make quantized key legend items
       var li = legend.append("g")
           .attr("transform", "translate (8,"+(10)+")")
           .attr("class", "legend-items");
@@ -92,6 +93,35 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("class", "voronoi-legend-title")
           .attr("x", 140)
           .attr("y", function(){ return HEIGHT - 330 });
+
+    var lb2 = legend.append("rect")
+        .attr("transform", "translate (" + (280) + "," + (HEIGHT - 190) + ")")
+        .style("fill", "#e5e5e5")
+        .attr("width", 270)
+        .attr("height", 190);
+
+    var li2 = legend.selectAll("legendCircles")
+        .data([10, 20])
+        .enter().append("circle")
+        .attr("cx", 260)
+        .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
+        .attr("r", 25)
+        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 150) + ")")
+        .style("fill", function(d,i) { if(i==1) return "orange"; else return "red"; } )
+        .style("stroke", "white")
+        .style("stroke-width", 0.5);
+
+    li2.selectAll("text")
+        .data(["Population", "Test Center"])
+        .enter().append("text")
+        .attr("class", "legend-text-voronoi")
+        .attr("x", 120)
+        .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
+        .attr("transform", "translate (" + (40) + "," + (HEIGHT - 150) + ")")
+        .text(function(d) {
+          return d;
+        });
+
   }
 
   function readAllPoints() {
