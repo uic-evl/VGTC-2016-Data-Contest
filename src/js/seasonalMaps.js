@@ -188,19 +188,19 @@ function seasonalMaps() {
 
         let colorLegend = d3.legendColor()
             .scale(colorFill)
-            .shapeWidth(50)
-            .shapeHeight(50)
+            .shapeWidth(60)
+            .shapeHeight(60)
 
         let svg = selection.append("svg")
             .attr('width', 400)
-            .attr('height', 280 )
+            .attr('height', 300 )
         
          svg.append("g")
              .attr("class", "legendQuant")
              .attr("transform", "translate(130,10)") 
              //.call( d3.legendColor().scale(colorFill))
              .call(colorLegend)
-             .style("font-size","30px")
+             .style("font-size","40px")
 
 
     //     let scale = d3.scaleLinear()
@@ -225,7 +225,7 @@ function seasonalMaps() {
     function drawCircleLegend(selection, test_centers){
 
         let svg = selection.append("svg")
-            .attr('width', 600)
+            .attr('width', 800)
             .attr('height', 200 )
 
         let scale = d3.scaleLinear()
@@ -239,10 +239,10 @@ function seasonalMaps() {
             .call( d3.legendSize()
                 .scale(scale)
                 .shape('circle')
-                .shapePadding(70)
+                .shapePadding(100)
                 .labelOffset(35)
                 .orient('horizontal'))
-                .style("font-size","30px")
+                .style("font-size","40px")
 
     }
 
