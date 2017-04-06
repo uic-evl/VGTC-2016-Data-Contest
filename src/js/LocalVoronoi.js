@@ -6,7 +6,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
   let WIDTH = d3.select(columnID).node().clientWidth - 40;
   let HEIGHT = WIDTH * 1.5;
 
-  let dotScale = window.innerWidth/1920;
+  let dotScale = window.innerWidth/1800;
   let dotScaleTest = window.innerWidth/860;
 
   let zipData = [];
@@ -113,11 +113,11 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
     li2.selectAll(".circles")
         .data(["Population", "Test Center", "New Test Center"])
         .enter().append("circle")
-          .attr("cx", 260)
+          .attr("cx", 230)
           .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
           .attr("r", 25)
           .attr("transform", "translate (" + (40) + "," + (50) + ")")
-          .style("fill", function(d,i) { if(i==0) return "#d95f02";
+          .style("fill", function(d,i) { if(i==0) return "#0073ff";
                                          else if(i==1) return "#1b9e77";
                                          else return "red"; } )
           .style("stroke", "black")
@@ -127,7 +127,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         .data(["Population", "Test Center", "New Test Center"])
         .enter().append("text")
         .attr("class", "legend-text-voronoi")
-        .attr("x", 400)
+        .attr("x", 300)
         .attr("y", function(d, i) { return (i+1)*lineheight - 15; })
         .attr("transform", "translate (" + (10) + "," + (50) + ")")
         .style("text-anchor", "start")
@@ -380,9 +380,10 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           // return zipSize(d.population);
           return dotSize(d.population);
         })
-        .style("fill", "#d95f02")
-        .style("stroke", "#d95f02")
+        .style("fill", "#0073ff")
+        .style("stroke", "#0073ff")
         .style("stroke-width", 0.5);
+      //#d95f02
 
       // create Test Center points (on top of zip points)
       map.selectAll(".testCenter")
@@ -411,7 +412,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             if (d.pID == 1 || d.pID == 2)
               return "none";
             else
-              return "#4d4c4c";
+              return "black";
         })
         .style("stroke-width", 0.05)
         .on("click", (d) => {
