@@ -41,7 +41,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
     var myQuantizeScale = d3.scaleQuantize()
         .domain([0, 1])
-        .range(["white", "#ededff", "#d4d4ff", "#4762c8", "blue"]);
+        .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba"]);
 
       var qrange = function(max, num) {
         var a = [];
@@ -117,9 +117,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
           .attr("r", 25)
           .attr("transform", "translate (" + (40) + "," + (50) + ")")
-          .style("fill", function(d,i) { if(i==0) return "orange";
-                                         else if(i==1) return "red";
-                                         else return "yellow"; } )
+          .style("fill", function(d,i) { if(i==0) return "#d95f02";
+                                         else if(i==1) return "#1b9e77";
+                                         else return "red"; } )
           .style("stroke", "black")
           .style("stroke-width", 0.5)
 ;
@@ -282,11 +282,11 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
     let voronoiFill = d3.scaleLinear()
       .domain([0, 1])
-      .range(["white", "blue"]);
+      .range(["#f2f0f7", "#807dba"]);
 
     quantizeScale = d3.scaleQuantize()
           .domain([0, 1])
-          .range(["white", "#ededff", "#d4d4ff", "#4762c8", "blue"]);
+          .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba"]);
 
     console.log("Zip Extent", d3.extent(zipData, el => el.population));
     console.log("Capacity Extent", d3.extent(testCenterIDs, (el) => {
@@ -350,7 +350,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("stroke", (d) => {
           //return d.fake ? "white" : "red";
-          return d.fake ? "yellow" : "gray";
+          return d.fake ? "#ff0303" : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -380,8 +380,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           // return zipSize(d.population);
           return dotSize(d.population);
         })
-        .style("fill", "orange")
-        .style("stroke", "white")
+        .style("fill", "#d95f02")
+        .style("stroke", "#d95f02")
         .style("stroke-width", 0.5);
 
       // create Test Center points (on top of zip points)
@@ -403,7 +403,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "yellow";
+              return "red";
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
@@ -411,7 +411,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             if (d.pID == 1 || d.pID == 2)
               return "none";
             else
-              return "#e34a33";
+              return "#4d4c4c";
         })
         .style("stroke-width", 0.05)
         .on("click", (d) => {
@@ -435,7 +435,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return (d3.sum(d.testEvents, el => el.assigned) * 100 /
             d3.sum(d.testEvents, el => el.capacity)) + "%";
         })
-        .style("stop-color", "#e34a33");
+        .style("stop-color", "#1b9e77");
 
       grad.append("stop")
         .attr("offset", function(d) {
@@ -456,7 +456,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .attr("d", path)
         .style("fill", "none")
-        .style("stroke", "black")
+        .style("stroke", "#8a8988")
         .style("stroke-width", 5);
 
       // create map
@@ -471,7 +471,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .attr("d", path)
         .style("fill", "none")
-        .style("stroke", "black")
+        .style("stroke", "#8a8988")
         .style("stroke-width", 1);
 
       // zoom into Cook County
@@ -535,7 +535,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       map.select("#county17031")
         .style("opacity", 1)
-        .style("stroke", "white")
+        .style("stroke", "#8a8988")
         .style("stroke-width", dotScale * 4 / scale)
         .moveToFront();
     }

@@ -6,7 +6,7 @@ function seasonalMaps() {
             bottom: 10,
             left: 10
         },
-        width = 700 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 850 - margin.top - margin.bottom;
 
     const colorCode = d3.scaleOrdinal()
