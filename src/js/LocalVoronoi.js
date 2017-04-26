@@ -13,6 +13,11 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
   let testCenterData = {};
   let testCenterIDs = [];
 
+  let highlight_voronoi_color = "red";
+  let zip_code_population_color = "#225359";
+  let test_center_color = "#ff7f00";
+  let county_border_color = "#8a8988";
+
   // let fakeDataIDs = ["2268870", "2273631", "2269023", "2273126", "1", "2"];
 
   let mySVG = d3.select(svgID)
@@ -41,7 +46,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
     var myQuantizeScale = d3.scaleQuantize()
         .domain([0, 1])
-        .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba"]);
+        .range(["#f7f7f7", "#d9d9d9", "#bdbdbd", "#969696", "#737373"]);
+        //.range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba"]);
 
       var qrange = function(max, num) {
         var a = [];
@@ -117,9 +123,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           .attr("cy", function(d, i) { return (i+1)*lineheight - 20; })
           .attr("r", 25)
           .attr("transform", "translate (" + (40) + "," + (50) + ")")
-          .style("fill", function(d,i) { if(i==0) return "#0073ff";
-                                         else if(i==1) return "#1b9e77";
-                                         else return "red"; } )
+          .style("fill", function(d,i) { if(i==0) return zip_code_population_color;
+                                         else if(i==1) return test_center_color;
+                                         else return highlight_voronoi_color; } )
           .style("stroke", "black")
           .style("stroke-width", 0.5)
 ;
@@ -282,7 +288,8 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
     let voronoiFill = d3.scaleLinear()
       .domain([0, 1])
-      .range(["#f2f0f7", "#807dba"]);
+      .range(["#f2f0f7", "#737373"]);
+
 
     quantizeScale = d3.scaleQuantize()
           .domain([0, 1])
@@ -346,11 +353,11 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             return el.assigned / el.capacity;
           });
 
-          return percent > 1 ? "#FF0000" : voronoiFill(percent);
+          return percent > 1 ? highlight_voronoi_color : voronoiFill(percent);
         })
         .style("stroke", (d) => {
           //return d.fake ? "white" : "red";
-          return d.fake ? "#ff0303" : "gray";
+          return d.fake ? highlight_voronoi_color : "gray";
         })
         .style("stroke-width", (d) => {
           return d.fake ? 0.5 : 0.15;
@@ -380,10 +387,9 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           // return zipSize(d.population);
           return dotSize(d.population);
         })
-        .style("fill", "#0073ff")
-        .style("stroke", "#0073ff")
+        .style("fill", zip_code_population_color)
+        .style("stroke", zip_code_population_color)
         .style("stroke-width", 0.5);
-      //#d95f02
 
       // create Test Center points (on top of zip points)
       map.selectAll(".testCenter")
@@ -404,7 +410,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .style("fill", (d) => {
             if (d.pID == 1 || d.pID == 2)
-              return "red";
+              return highlight_voronoi_color;
             else
               return "url(#grad" + Number(d.tcID) + ")";
         })
@@ -412,7 +418,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
             if (d.pID == 1 || d.pID == 2)
               return "none";
             else
-              return "black";
+              return highlight_voronoi_color;
         })
         .style("stroke-width", 0.05)
         .on("click", (d) => {
@@ -436,7 +442,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
           return (d3.sum(d.testEvents, el => el.assigned) * 100 /
             d3.sum(d.testEvents, el => el.capacity)) + "%";
         })
-        .style("stop-color", "#1b9e77");
+        .style("stop-color", test_center_color);
 
       grad.append("stop")
         .attr("offset", function(d) {
@@ -457,7 +463,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .attr("d", path)
         .style("fill", "none")
-        .style("stroke", "#8a8988")
+        .style("stroke", county_border_color)
         .style("stroke-width", 5);
 
       // create map
@@ -472,7 +478,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
         })
         .attr("d", path)
         .style("fill", "none")
-        .style("stroke", "#8a8988")
+        .style("stroke", county_border_color)
         .style("stroke-width", 1);
 
       // zoom into Cook County
@@ -536,7 +542,7 @@ function createLocalVoronoi(svgID, columnID, stateOrCounty, useFakeData) {
 
       map.select("#county17031")
         .style("opacity", 1)
-        .style("stroke", "#8a8988")
+        .style("stroke", county_border_color)
         .style("stroke-width", dotScale * 4 / scale)
         .moveToFront();
     }
